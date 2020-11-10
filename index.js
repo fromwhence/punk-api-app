@@ -111,21 +111,6 @@ async function getBeers() {
   }
 }
 
-// Sticky toolbar
-// const filtersToolbar = document.getElementById('filters-container');
-// let sticky = filtersToolbar.offsetTop;
-
-// function setStickyToolbar() {
-//   if (window.pageYOffset > sticky) {
-//     filtersToolbar.classList.add('sticky');
-//   } else {
-//     filtersToolbar.classList.remove('sticky');
-//   }
-// }
-
-// window.onscroll = () => setStickyToolbar();
-
-
 prevPage.addEventListener('click', () => {
   page--;
   getBeers();
