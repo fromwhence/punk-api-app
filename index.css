@@ -1,0 +1,387 @@
+/* fonts */
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Old+Standard+TT&display=swap");
+
+/* custom properties */
+:root {
+  --off-white: #f2f2f2;
+  --black: rgba(0,0,16,0.8);
+  --dark-grey: rgba(0,0,16,0.6);
+  --light-grey: rgba(0,0,16,0.2);
+  --blue: #0d71e3;
+  --light-blue: #0fc0ff;
+  --lightest-blue: #f7fbff;
+  --green: #00cc4f;
+  --orange: #ffb144;
+  --disabled: rgba(0,0,16,0.35);
+  --shadow: 0 0.5rem 1rem rgba(0, 0, 16, 0.19),
+    0 0.3rem 0.3rem rgba(0, 0, 16, 0.23);
+}
+
+* {
+  /* border: 1px solid lightgreen; */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* resets */
+body, html {
+  height: 100vh;
+  background-color: var(--off-white);
+  font-family: 'Lato', sans-serif;
+  color: var(--black);
+}
+
+/* header */
+header {
+  background: var(--blue);
+  width: 100%;
+}
+
+header h1 {
+  color: var(--off-white);
+  font-size: 1.4rem;
+  padding: 1.5rem 1.25rem;
+}
+
+.instructions {
+  color: white;
+  background-color: var(--black);
+  width: 100%;
+}
+
+.instructions p {
+  font-size: 1rem;
+  text-align: left;
+  padding: 1rem 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .instructions p {
+    text-align: center;
+    letter-spacing: 1px;
+  }
+}
+
+/* main container */
+.container {
+  padding: 1rem 1.25rem;
+}
+
+#filters-container {
+  background-color: white;
+  width: 100%;
+  height: auto;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid var(--light-grey);
+  z-index: 999;
+}
+
+/* Sticky class added to filters bar with JS when is reaches scroll position */
+/* #filters-container.sticky {
+  position: fixed;
+  top: 0;
+  border-bottom: 2px solid white;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.2);
+}
+
+#filters-container.sticky + .content {
+  padding-top: 50px;
+} */
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+@media (min-width: 500px) {
+  #filters-container {
+    padding: 0.25rem 0;
+  }
+
+  .filters {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem 0.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .filters {
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 0.5rem 2rem;
+    max-width: 850px;
+  }
+}
+
+.filter-card {
+  width: 100%;
+}
+
+@media (min-width: 500px) {
+  .filter-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 220px;
+  }
+}
+
+@media (min-width: 768px) {
+  .filter-card {
+    align-items: center;
+    max-width: 360px;
+  }
+}
+
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1.25rem;
+}
+
+@media (min-width: 500px) {
+  .filter-container {
+    flex-direction: column;
+    padding: 0 0 0.5rem 0;
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 768px) {
+  .filter-container {
+    flex-direction: row;
+    max-width: 350px;
+    padding: 0;
+  }
+}
+
+.filter-text p {
+  color: var(--black);
+  font-size: 1rem;
+  margin: 0.75rem 0;
+  text-align: left;
+}
+
+@media (min-width: 500px) {
+  .filter-text p {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .filter-text p {
+    margin-right: 0.75rem;
+  }
+}
+
+.filter {
+  background-color: var(--black);
+  border-radius: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.25rem;
+  max-width: 180px;
+}
+
+.filter-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 0.5rem;
+}
+
+.filter-all + span {
+  font-size: 1em;
+  color: var(--off-white);
+  padding: 0 0.5rem 0 1rem;
+}
+
+svg {
+  fill: var(--off-white);
+  height: 1.5rem;
+  width: 1.5rem;
+  margin: 0.5rem;
+}
+
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+input + span,
+input + svg {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-all:hover,
+.filter-all:checked + span,
+.filter-all:focus + span {
+  color: var(--light-blue);
+}
+
+.beer:hover,
+.beer:checked + svg,
+.beer:focus + svg {
+  fill: var(--orange);
+}
+
+.hops:hover,
+.hops:checked + svg,
+.hops:focus + svg {
+  fill: var(--green);
+}
+
+/* pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.pagination-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination-text {
+  font-size: 1.1rem;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.page-btn {
+  border: none;
+  cursor: pointer;
+  font-size: 2.25rem;
+  color: var(--black);
+  padding: 0.1rem 0.275rem;
+  transition: color .3s ease;
+}
+
+.page-btn:hover,
+.page-btn:focus {
+  color: var(--blue);
+}
+
+.page-btn:disabled {
+  cursor: default;
+  color: var(--disabled);
+}
+
+/* beers */
+.card {
+  display: flex;
+  background-color: white;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+#beers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 1rem;
+}
+
+.beer-wrapper {
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+}
+
+#beers .beer--card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 1.5rem 1.5rem;
+  background-color: white;
+  text-align: center;
+  width: 100%;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+ 
+.beer--name {
+  margin: 1rem auto;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.beer--card .beer--img {
+  margin: auto;
+  height: 20rem;
+}
+
+.beer--info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toggle--info {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  font-size: 1rem;
+  color: var(--dark-grey);
+  cursor: pointer;
+  opacity: 1;
+  z-index: 99;
+}
+
+.toggle--info:hover {
+  color: var(--black);
+}
+
+.beer--content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 3.5rem 1.75rem 1.75rem;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  overflow: auto;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.beer--content.show-content {
+  opacity: 1;
+}
+
+.beer--content .beer--name {
+  margin: -0.75rem auto .75rem auto;
+  font-size: 1.75rem;
+  line-height: 1.1;
+}
+
+.beer--tagline {
+  padding-bottom: 0.5rem;
+  font-style: italic;
+  border-bottom: 2px solid var(--blue);
+}
+
+.beer--description {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.beer--food-pairing {
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+
