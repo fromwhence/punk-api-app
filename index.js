@@ -115,7 +115,6 @@ async function getBeers() {
         return 0;
       }
     )};
-    
     sortMenuItems[0].classList.contains('current') ? sortName(beers) : null;
   
     // sort by ABV (ascending)
@@ -124,7 +123,6 @@ async function getBeers() {
         return a.abv - b.abv;
       }
     )};
-
     sortMenuItems[1].classList.contains('current') ?  sortABV(beers) : null;
 
     // sort by IBU (ascending)
@@ -133,7 +131,6 @@ async function getBeers() {
         return a.ibu - b.ibu;
       }
     )};
-
     sortMenuItems[2].classList.contains('current') ? sortIBU(beers) : null;
     
     // pagination
@@ -216,10 +213,10 @@ sortBtn.addEventListener('click', function(e) {
   sortBtn.nextElementSibling.classList.toggle('active');
 });
 
-
 // Toggle additional beer information
 document.addEventListener('click', function(e) {
-  if (e.target.classList.contains( 'toggle--info' )) {
+  if (e.target.classList.contains('toggle--info')) {
+    console.log('Toggle clicked')
     if (e.target.innerHTML === "Info -") {
       e.target.innerHTML = "Info +"; 
     } else {
@@ -228,4 +225,5 @@ document.addEventListener('click', function(e) {
     e.target.nextElementSibling.classList.toggle('show-content');
   }
 }, false);
+
 
