@@ -78,6 +78,7 @@ filterIBU.addEventListener('change', e => {
 
 // Sort results
 const sortMenuItems = Array.from(document.getElementsByClassName('sort-option'));
+const sortBtn = document.querySelector('.dropbtn');
 // Used to remove current class from all siblings
 const getSiblings = (elem) => {
   let siblings = [];
@@ -196,6 +197,7 @@ nextPage.addEventListener('click', () => {
 
 getBeers();
 
+// Sort results
 document.addEventListener('click', function(e) {
   if (e.target.classList.contains('sort-option') && !e.target.classList.contains('current')) {
     e.target.classList.add('current');
@@ -208,16 +210,22 @@ document.addEventListener('click', function(e) {
   getBeers();
 }, false);
 
+// Sort results button
+sortBtn.addEventListener('click', function(e) {
+  sortBtn.classList.toggle('open');
+  sortBtn.nextElementSibling.classList.toggle('active');
+});
+
 
 // Toggle additional beer information
-document.addEventListener('click', function(event) {
-  if (event.target.classList.contains( 'toggle--info' ) ) {
-    if (event.target.innerHTML === "Info -") {
-      event.target.innerHTML = "Info +"; 
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains( 'toggle--info' )) {
+    if (e.target.innerHTML === "Info -") {
+      e.target.innerHTML = "Info +"; 
     } else {
-      event.target.innerHTML = "Info -";
+      e.target.innerHTML = "Info -";
     };
-    event.target.nextElementSibling.classList.toggle('show-content');
+    e.target.nextElementSibling.classList.toggle('show-content');
   }
 }, false);
 

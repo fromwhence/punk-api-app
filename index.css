@@ -248,10 +248,18 @@ input + svg {
   font-size: 1em;
   border: none;
   cursor: pointer;
+  z-index: 110;
+  overflow: hidden;
 }
 
 .dropbtn i {
-  padding-left: 1.2em;
+  margin-left: 1.2em;
+  transition: transform 300ms;
+}
+
+.dropbtn.open i {
+  margin-left: 1.2em;
+  transform: rotate(180deg);
 }
 
 .dropdown {
@@ -265,6 +273,7 @@ input + svg {
   background: #fff;
   min-width: 151px;
   box-shadow: var(--bottom-shadow);
+  transition: all 400ms;
   z-index: 105;
 }
 
@@ -276,17 +285,19 @@ input + svg {
   transition: 250ms;
 }
 
+.dropdown-content.active {
+  height: auto;
+  display: block;
+}
+
 a.current {
   background: var(--lighter-blue);
   pointer-events: none;
 }
 
-.dropdown-content a:hover {
+.dropdown-content a:hover,
+.dropdown-content a:focus {
   background: var(--lighter-grey);
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
 }
 
 a.sort-option {
@@ -302,8 +313,6 @@ a.sort-option {
 .current i {
   visibility: visible;
 }
-
-
 
 /* pagination */
 .pagination {
