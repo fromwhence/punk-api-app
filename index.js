@@ -15,40 +15,38 @@
 			unfocus_style.innerHTML = '';
 		});
 	};
-
 	unfocus.style = function(style){
 		styleText += style;
 	};
-
 	unfocus();
 })(document, window);
 
 
-// variables
-const urlBase = "https://api.punkapi.com/v2/beers?page=";
-const filterABV = document.getElementById("filterABV");
-const filterIBU = document.getElementById("filterIBU");
-const pagerNumber = document.getElementById("pageNumber");
-const prevPage = document.getElementById("prevPage");
-const nextPage = document.getElementById("nextPage");
-let optionsABV = "", optionsIBU = ""; page = 1; perPage = "&per_page=24";
+// Variables
+const urlBase = 'https://api.punkapi.com/v2/beers?page=';
+const filterABV = document.getElementById('filterABV');
+const filterIBU = document.getElementById('filterIBU');
+const pagerNumber = document.getElementById('pageNumber');
+const prevPage = document.getElementById('prevPage');
+const nextPage = document.getElementById('nextPage');
+let optionsABV = '', optionsIBU = ''; page = 1; perPage = '&per_page=24';
 
-//filters
-filterABV.addEventListener("change", e => {
+// Filters
+filterABV.addEventListener('change', e => {
   const value = e.target.value;
 
   switch (value) {
-    case "all":
-      optionsABV = "";
+    case 'all':
+      optionsABV = '';
       break
-    case "weak":
-      optionsABV = "&abv_lt=4.6";
+    case 'weak':
+      optionsABV = '&abv_lt=4.6';
       break
-    case "medium":
-      optionsABV = "&abv_gt=4.5&abv_lt-7.6";
+    case 'medium':
+      optionsABV = '&abv_gt=4.5&abv_lt-7.6';
       break
-    case "strong":
-      optionsABV = "&abv_gt=7.5";
+    case 'strong':
+      optionsABV = '&abv_gt=7.5';
       break
   }
 
@@ -56,38 +54,87 @@ filterABV.addEventListener("change", e => {
   getBeers();
 })
 
-filterIBU.addEventListener("change", e => {
+filterIBU.addEventListener('change', e => {
   const value = e.target.value;
 
   switch (value) {
-    case "all":
-      optionsIBU = "";
+    case 'all':
+      optionsIBU = '';
       break
-    case "weak":
-      optionsIBU = "&ibu_lt=35";
+    case 'weak':
+      optionsIBU = '&ibu_lt=35';
       break
-    case "medium":
-      optionsIBU = "&ibu_gt=34&ibu_lt=75";
+    case 'medium':
+      optionsIBU = '&ibu_gt=34&ibu_lt=75';
       break
-    case "strong":
-      optionsIBU = "&ibu_gt=74";
+    case 'strong':
+      optionsIBU = '&ibu_gt=74';
       break
   }
 
   page = 1;
   getBeers();
 })
+
+// Sort results
+const sortMenuItems = Array.from(document.getElementsByClassName('sort-option'));
+// Used to remove current class from all siblings
+const getSiblings = (elem) => {
+  let siblings = [];
+  let sibling = elem.parentNode.firstChild;
+  while(sibling) {
+    if (sibling !== elem) {
+      siblings.push(sibling)
+    }
+    sibling = sibling.nextElementSibling;
+  }
+  return siblings;
+};
 
 // api call
 async function getBeers() {
   try {
     const url = urlBase + page + perPage + optionsABV + optionsIBU;
-    console.log(url);
 
     // fetch
     const beerPromise = await fetch(url);
     const beers = await beerPromise.json();
 
+    // sort data (name, ABV, IBU)
+    const sortName = (beers) => {
+      beers.sort(function(a, b) {
+        let nameA = a.name.toUpperCase();
+        let nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      }
+    )};
+    
+    sortMenuItems[0].classList.contains('current') ? sortName(beers) : null;
+  
+    // sort by ABV (ascending)
+    const sortABV = (beers) => {
+      beers.sort(function(a, b) {
+        return a.abv - b.abv;
+      }
+    )};
+
+    sortMenuItems[1].classList.contains('current') ?  sortABV(beers) : null;
+
+    // sort by IBU (ascending)
+    const sortIBU = (beers) => {
+      beers.sort(function(a, b) {
+        return a.ibu - b.ibu;
+      }
+    )};
+
+    sortMenuItems[2].classList.contains('current') ? sortIBU(beers) : null;
+    
     // pagination
     pageNumber.innerText = page;
 
@@ -102,8 +149,9 @@ async function getBeers() {
       nextPage.disabled = false;
     }
 
-    // render data
+    // render beer data
     const beersDiv = document.getElementById('beers');
+
     let beerHtml = "";
     const genericBottle = "images/generic-bottle.png";
 
@@ -114,8 +162,8 @@ async function getBeers() {
             <img class='beer--img' src='${beer.image_url ? beer.image_url : genericBottle}'/>
             <h3 class='beer--name'>${beer.name}</h3>
             <span class='beer--info'>
-              <span>ABV: ${beer.abv}%</span>
-              <span>IBU: ${beer.ibu}</span>
+              <span>ABV: ${beer.abv ? beer.abv : 'N/A'}%</span>
+              <span>IBU: ${beer.ibu ? beer.ibu : 'N/A'}</span>
             </span>
           </div>
           <div class='toggle--info'>Info +</div>
@@ -148,14 +196,28 @@ nextPage.addEventListener('click', () => {
 
 getBeers();
 
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('sort-option') && !e.target.classList.contains('current')) {
+    e.target.classList.add('current');
+  };
+  let removeCurrent = getSiblings(e.target);
+  removeCurrent.shift();
+  removeCurrent.forEach(item => {
+    item.classList.remove('current');
+  });
+  getBeers();
+}, false);
+
+
 // Toggle additional beer information
-document.addEventListener('click', function (event) {
+document.addEventListener('click', function(event) {
   if (event.target.classList.contains( 'toggle--info' ) ) {
-      if (event.target.innerHTML === "Info -") {
-        event.target.innerHTML = "Info +"; 
-      } else {
-        event.target.innerHTML = "Info -";
-      };
-      event.target.nextElementSibling.classList.toggle('show-content');
+    if (event.target.innerHTML === "Info -") {
+      event.target.innerHTML = "Info +"; 
+    } else {
+      event.target.innerHTML = "Info -";
+    };
+    event.target.nextElementSibling.classList.toggle('show-content');
   }
 }, false);
+

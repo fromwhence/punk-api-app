@@ -7,14 +7,17 @@
   --black: rgba(0,0,16,0.8);
   --dark-grey: rgba(0,0,16,0.6);
   --light-grey: rgba(0,0,16,0.2);
+  --lighter-grey: rgba(0,0,16,0.1);
   --blue: #0d71e3;
-  --light-blue: #0fc0ff;
+  --light-blue: #1dc3ff;
+  --lighter-blue: #91e2ff;
   --lightest-blue: #f7fbff;
   --green: #00cc4f;
   --orange: #ffb144;
   --disabled: rgba(0,0,16,0.35);
   --shadow: 0 0.5rem 1rem rgba(0, 0, 16, 0.19),
     0 0.3rem 0.3rem rgba(0, 0, 16, 0.23);
+  --bottom-shadow: 0 0.3rem 0.3rem rgba(0, 0, 16, 0.19);
 }
 
 * {
@@ -227,24 +230,100 @@ input + svg {
   fill: var(--green);
 }
 
+.sortby-pagination-container {
+  display: flex;
+  width: 100%;
+  height: auto;
+  padding: 1rem 1.25rem 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Sort by */
+
+.dropbtn {
+  background: var(--blue);
+  color: white;
+  padding: .85em 1em;
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn i {
+  padding-left: 1.2em;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #fff;
+  min-width: 151px;
+  box-shadow: var(--bottom-shadow);
+  z-index: 105;
+}
+
+.dropdown-content a {
+  color: var(--black);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: 250ms;
+}
+
+a.current {
+  background: var(--lighter-blue);
+  pointer-events: none;
+}
+
+.dropdown-content a:hover {
+  background: var(--lighter-grey);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+a.sort-option {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sort-option i {
+  visibility: hidden;
+}
+
+.current i {
+  visibility: visible;
+}
+
+
+
 /* pagination */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
 }
 
-.pagination-container {
+.page-buttons {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .pagination-text {
   font-size: 1.1rem;
-  margin: 0.75rem 0 0.25rem;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  margin: 0 .3em;
 }
 
 .page-btn {

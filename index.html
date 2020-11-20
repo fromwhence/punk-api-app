@@ -324,19 +324,36 @@
       </div>
     </div>
     </div>
-    <div class="pagination">
-      <div class="pagination-container">
+    <div class="sortby-pagination-container">
+      <div class="sort-by dropdown">
+        <button class="dropbtn">Sort results <i class="fas fa-chevron-down"></i></button>
+        <div class="dropdown-content">
+          <a href="#" class="sort-option sort-name current">
+            Name (A-Z) 
+            <i class="fas fa-check"></i>
+          </a>
+          <a href="#" class="sort-option sort-abv">
+            Alcohol Vol.
+            <i class="fas fa-check"></i>
+          </a>
+          <a href="#" class="sort-option sort-ibu">
+            Hoppiness
+            <i class="fas fa-check"></i>
+          </a>
+        </div>
+      </div>
+      <div class="pagination">
+      <div class="page-buttons">
+        <button id="prevPage" class="page-btn" disabled>
+          <i class="far fa-caret-square-left"></i>
+        </button>
         <div class="pagination-text">
-          <p>Page: <span id="pageNumber"></span></p>
+          <p>p. <span id="pageNumber"></span></p>
         </div>
-        <div class="page-buttons">
-          <button id="prevPage" class="page-btn" disabled>
-            <i class="far fa-caret-square-left"></i>
-          </button>
-          <button id="nextPage" class="page-btn">
-            <i class="far fa-caret-square-right"></i>
-          </button>
-        </div>
+        <button id="nextPage" class="page-btn">
+          <i class="far fa-caret-square-right"></i>
+        </button>
+      </div>
       </div>
     </div>
     <div class="container">
