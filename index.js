@@ -96,6 +96,7 @@ const getSiblings = (elem) => {
 async function getBeers() {
   try {
     const url = urlBase + page + perPage + optionsABV + optionsIBU;
+    console.log(url);
 
     // fetch
     const beerPromise = await fetch(url);
@@ -164,7 +165,7 @@ async function getBeers() {
               <span>IBU: ${beer.ibu ? beer.ibu : 'N/A'}</span>
             </span>
           </div>
-          <div class='toggle--info'>Info +</div>
+          <div class='toggle--info' onclick>Info +</div>
           <div class='beer--content'>
             <div class='beer--name'>${beer.name}</div>
             <div class='beer--tagline'>${beer.tagline}</div>
@@ -176,8 +177,8 @@ async function getBeers() {
         </div>
         `
     });
-    beersDiv.innerHTML = beerHtml;   
-
+    beersDiv.innerHTML = beerHtml;
+    
   } catch(e) {
     console.log(e);
   }
@@ -194,29 +195,9 @@ nextPage.addEventListener('click', () => {
 
 getBeers();
 
-// Sort results
-document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('sort-option') && !e.target.classList.contains('current')) {
-    e.target.classList.add('current');
-  };
-  let removeCurrent = getSiblings(e.target);
-  removeCurrent.shift();
-  removeCurrent.forEach(item => {
-    item.classList.remove('current');
-  });
-  getBeers();
-}, false);
-
-// Sort results button
-sortBtn.addEventListener('click', function(e) {
-  sortBtn.classList.toggle('open');
-  sortBtn.nextElementSibling.classList.toggle('active');
-});
-
 // Toggle additional beer information
 document.addEventListener('click', function(e) {
   if (e.target.classList.contains('toggle--info')) {
-    console.log('Toggle clicked')
     if (e.target.innerHTML === "Info -") {
       e.target.innerHTML = "Info +"; 
     } else {
@@ -224,6 +205,35 @@ document.addEventListener('click', function(e) {
     };
     e.target.nextElementSibling.classList.toggle('show-content');
   }
-}, false);
+});
+
+// Sort results button
+sortBtn.addEventListener('click', function(e) {
+  sortBtn.classList.toggle('open');
+  sortBtn.nextElementSibling.classList.toggle('active');
+});
+
+// Sort results
+const sortOptions = Array.from(document.getElementsByClassName('sort-option'));
+
+for (let i = 0; i < sortOptions.length; i++) {
+  sortOptions[i].addEventListener('click', function() {
+    if (!sortOptions[i].classList.contains('current')) {
+      sortOptions[i].classList.toggle('current');
+      sortBtn.classList.remove('open');
+      sortBtn.nextElementSibling.classList.remove('active');
+    };
+    let removeCurrent = getSiblings(sortOptions[i]);
+    console.log(removeCurrent);
+    removeCurrent.shift();
+    removeCurrent.forEach(item => {
+      item.classList.remove('current');
+    });
+    getBeers();
+  }, false);
+};
+
+
+
 
 
