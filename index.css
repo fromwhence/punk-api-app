@@ -291,7 +291,7 @@ input + svg {
   position: absolute;
   background: #fff;
   width: 100%;
-  min-width: 151px;
+  max-width: 150px;
   box-shadow: var(--bottom-shadow);
   transition: all 500ms ease;
   z-index: 105;
@@ -306,6 +306,10 @@ input + svg {
 }
 
 @media (min-width: 768px) {
+  .dropdown-content {
+    max-width: 171px;
+  }
+
   .dropdown-content a {
     padding: 14px 16px;
     font-size: 1.1em;
