@@ -19,10 +19,10 @@
 		styleText += style;
 	};
 	unfocus();
-})(document, window);
-
+}) (document, window);
 
 // Variables
+let log = console.log;
 const urlBase = 'https://api.punkapi.com/v2/beers?page=';
 const filterABV = document.getElementById('filterABV');
 const filterIBU = document.getElementById('filterIBU');
@@ -76,62 +76,47 @@ filterIBU.addEventListener('change', e => {
   getBeers();
 })
 
-// Sort results
-const sortMenuItems = Array.from(document.getElementsByClassName('sort-option'));
-const sortBtn = document.querySelector('.dropbtn');
-// Used to remove current class from all siblings
-const getSiblings = (elem) => {
-  let siblings = [];
-  let sibling = elem.parentNode.firstChild;
-  while(sibling) {
-    if (sibling !== elem) {
-      siblings.push(sibling)
+// sort results by data (A-Z)
+const sortName = (beers) => {
+  beers.sort(function(a, b) {
+    let nameA = a.name.toUpperCase();
+    let nameB = b.name.toUpperCase();
+    if (nameA < nameB) {
+      return -1;
     }
-    sibling = sibling.nextElementSibling;
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
   }
-  return siblings;
-};
+)};
+
+// sort by ABV (ascending)
+const sortABV = (beers) => {
+  beers.sort(function(a, b) {
+    return a.abv - b.abv;
+  }
+)};
+
+// sort by IBU (ascending)
+const sortIBU = (beers) => {
+  beers.sort(function(a, b) {
+    return a.ibu - b.ibu;
+  }
+)};
 
 // api call
 async function getBeers() {
   try {
     const url = urlBase + page + perPage + optionsABV + optionsIBU;
-    console.log(url);
 
     // fetch
     const beerPromise = await fetch(url);
     const beers = await beerPromise.json();
 
-    // sort data (name, ABV, IBU)
-    const sortName = (beers) => {
-      beers.sort(function(a, b) {
-        let nameA = a.name.toUpperCase();
-        let nameB = b.name.toUpperCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0;
-      }
-    )};
+    // Sort results by name, abv or ibu
     sortMenuItems[0].classList.contains('current') ? sortName(beers) : null;
-  
-    // sort by ABV (ascending)
-    const sortABV = (beers) => {
-      beers.sort(function(a, b) {
-        return a.abv - b.abv;
-      }
-    )};
-    sortMenuItems[1].classList.contains('current') ?  sortABV(beers) : null;
-
-    // sort by IBU (ascending)
-    const sortIBU = (beers) => {
-      beers.sort(function(a, b) {
-        return a.ibu - b.ibu;
-      }
-    )};
+    sortMenuItems[1].classList.contains('current') ? sortABV(beers) : null;
     sortMenuItems[2].classList.contains('current') ? sortIBU(beers) : null;
     
     // pagination
@@ -165,7 +150,7 @@ async function getBeers() {
               <span>IBU: ${beer.ibu ? beer.ibu : 'N/A'}</span>
             </span>
           </div>
-          <div class='toggle--info' onclick>Info +</div>
+          <div class='toggle--info'>Info +</div>
           <div class='beer--content'>
             <div class='beer--name'>${beer.name}</div>
             <div class='beer--tagline'>${beer.tagline}</div>
@@ -178,9 +163,9 @@ async function getBeers() {
         `
     });
     beersDiv.innerHTML = beerHtml;
-    
+
   } catch(e) {
-    console.log(e);
+    log(e);
   }
 }
 
@@ -195,25 +180,30 @@ nextPage.addEventListener('click', () => {
 
 getBeers();
 
-// Toggle additional beer information
-document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('toggle--info')) {
-    if (e.target.innerHTML === "Info -") {
-      e.target.innerHTML = "Info +"; 
-    } else {
-      e.target.innerHTML = "Info -";
-    };
-    e.target.nextElementSibling.classList.toggle('show-content');
-  }
-});
+// Sort results
+const sortMenuItems = Array.from(document.getElementsByClassName('sort-option'));
+const sortBtn = document.querySelector('.dropbtn');
 
-// Sort results button
-sortBtn.addEventListener('click', function(e) {
+// Used to remove current class from all siblings
+const getSiblings = (elem) => {
+  let siblings = [];
+  let sibling = elem.parentNode.firstChild;
+  while(sibling) {
+    if (sibling !== elem) {
+      siblings.push(sibling)
+    }
+    sibling = sibling.nextElementSibling;
+  }
+  return siblings;
+};
+
+// Sort results button and menu appearance
+sortBtn.addEventListener('click', function() {
   sortBtn.classList.toggle('open');
   sortBtn.nextElementSibling.classList.toggle('active');
 });
 
-// Sort results
+// Select sort option (Name, ABV, IBU)
 const sortOptions = Array.from(document.getElementsByClassName('sort-option'));
 
 for (let i = 0; i < sortOptions.length; i++) {
@@ -224,7 +214,6 @@ for (let i = 0; i < sortOptions.length; i++) {
       sortBtn.nextElementSibling.classList.remove('active');
     };
     let removeCurrent = getSiblings(sortOptions[i]);
-    console.log(removeCurrent);
     removeCurrent.shift();
     removeCurrent.forEach(item => {
       item.classList.remove('current');
@@ -233,6 +222,19 @@ for (let i = 0; i < sortOptions.length; i++) {
   }, false);
 };
 
+// Toggle additional info on individual beer card
+const beerResults = document.getElementById('beers');
+beerResults.addEventListener('click', function(e) {
+  if (e.target.classList.contains('toggle--info')) {
+    if (e.target.innerHTML === "Info -") {
+      e.target.innerHTML = "Info +"; 
+    } else {
+      e.target.innerHTML = "Info -";
+    };
+    e.target.nextElementSibling.classList.toggle('show-content');
+  }
+  e.stopImmediatePropagation();
+}, true);
 
 
 

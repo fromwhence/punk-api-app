@@ -27,6 +27,10 @@
   box-sizing: border-box;
 }
 
+.beers + * {
+  pointer-events: none;
+}
+
 /* resets */
 body, html {
   height: 100vh;
