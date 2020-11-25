@@ -29,7 +29,9 @@ const filterIBU = document.getElementById('filterIBU');
 const pagerNumber = document.getElementById('pageNumber');
 const prevPage = document.getElementById('prevPage');
 const nextPage = document.getElementById('nextPage');
-let optionsABV = '', optionsIBU = ''; page = 1; perPage = '&per_page=24';
+
+let itemsPerPage = 24;
+let optionsABV = '', optionsIBU = ''; page = 1; perPage = `&per_page=${itemsPerPage}`;
 
 // Filters
 filterABV.addEventListener('change', e => {
@@ -118,6 +120,9 @@ async function getBeers() {
     sortMenuItems[0].classList.contains('current') ? sortName(beers) : null;
     sortMenuItems[1].classList.contains('current') ? sortABV(beers) : null;
     sortMenuItems[2].classList.contains('current') ? sortIBU(beers) : null;
+
+    // Change results per page
+
     
     // pagination
     pageNumber.innerText = page;
@@ -127,7 +132,7 @@ async function getBeers() {
     } else {
       prevPage.disabled = false;
     }
-    if(beers.length < 24) {
+    if(beers.length < itemsPerPage) {
       nextPage.disabled = true;
     } else {
       nextPage.disabled = false;
@@ -150,15 +155,13 @@ async function getBeers() {
               <span>IBU: ${beer.ibu ? beer.ibu : 'N/A'}</span>
             </span>
           </div>
-          <div class='toggle--info'>Info +</div>
-          <div class='beer--content'>
-            <div class='beer--name'>${beer.name}</div>
-            <div class='beer--tagline'>${beer.tagline}</div>
-            <div class='beer--description'>${beer.description}</div>
-            <div class='beer--food-pairing'>
-              Pair with: ${beer.food_pairing.join(', ')}
+          <div class='toggle--info-bg'></div>
+          <div class='toggle--text'>Info </div>
+            <div class='beer--content'>
+              <div class='beer--name'>${beer.name}</div>
+              <div class='beer--tagline'>${beer.tagline}</div>
+              <div class='beer--description'>${beer.description}</div>
             </div>
-          </div>
         </div>
         `
     });
@@ -180,9 +183,16 @@ nextPage.addEventListener('click', () => {
 
 getBeers();
 
-// Sort results
-const sortMenuItems = Array.from(document.getElementsByClassName('sort-option'));
-const sortBtn = document.querySelector('.dropbtn');
+// Toggle additional info on individual beer card
+const beerResults = document.getElementById('beers');
+
+beerResults.addEventListener('click', function(e) {
+  e.stopPropagation();
+  if (e.target.classList.contains('toggle--text')) {
+    e.target.classList.toggle('open');
+    e.target.nextElementSibling.classList.toggle('show-content');
+  }
+}, true);
 
 // Used to remove current class from all siblings
 const getSiblings = (elem) => {
@@ -197,45 +207,34 @@ const getSiblings = (elem) => {
   return siblings;
 };
 
+// Sort results
+const sortMenuItems = Array.from(document.getElementsByClassName('sort-option'));
+const sortDropdownBtn = document.querySelector('.dropdown-btn');
+
 // Sort results button and menu appearance
-sortBtn.addEventListener('click', function() {
-  sortBtn.classList.toggle('open');
-  sortBtn.nextElementSibling.classList.toggle('active');
+sortDropdownBtn.addEventListener('click', function() {
+  sortDropdownBtn.classList.toggle('open');
+  sortDropdownBtn.nextElementSibling.classList.toggle('active');
 });
 
 // Select sort option (Name, ABV, IBU)
-const sortOptions = Array.from(document.getElementsByClassName('sort-option'));
-
-for (let i = 0; i < sortOptions.length; i++) {
-  sortOptions[i].addEventListener('click', function() {
-    if (!sortOptions[i].classList.contains('current')) {
-      sortOptions[i].classList.toggle('current');
-      sortBtn.classList.remove('open');
-      sortBtn.nextElementSibling.classList.remove('active');
+for (let i = 0; i < sortMenuItems.length; i++) {
+  sortMenuItems[i].addEventListener('click', function() {
+    if (!sortMenuItems[i].classList.contains('current')) {
+      sortMenuItems[i].classList.toggle('current');
+      sortDropdownBtn.classList.remove('open');
+      sortDropdownBtn.nextElementSibling.classList.remove('active');
     };
-    let removeCurrent = getSiblings(sortOptions[i]);
+    let removeCurrent = getSiblings(sortMenuItems[i]);
     removeCurrent.shift();
     removeCurrent.forEach(item => {
       item.classList.remove('current');
     });
     getBeers();
-  }, false);
+  }, true);
 };
 
-// Toggle additional info on individual beer card
-const beerResults = document.getElementById('beers');
-beerResults.addEventListener('click', function(e) {
-  if (e.target.classList.contains('toggle--info')) {
-    if (e.target.innerHTML === "Info -") {
-      e.target.innerHTML = "Info +"; 
-    } else {
-      e.target.innerHTML = "Info -";
-    };
-    e.target.nextElementSibling.classList.toggle('show-content');
-  }
-  e.stopImmediatePropagation();
-}, true);
-
-
-
+// Results per page button and menu appearance 
+const resultsPerPgOptions = Array.from(document.getElementsByClassName('results-per-option'));
+console.log(resultsPerPgOptions);
 

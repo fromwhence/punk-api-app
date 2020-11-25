@@ -5,7 +5,7 @@
 :root {
   --off-white: #f2f2f2;
   --black: rgba(0,0,16,0.8);
-  --dark-grey: rgba(0,0,16,0.6);
+  --dark-grey: rgba(0,0,16,0.7);
   --light-grey: rgba(0,0,16,0.2);
   --lighter-grey: rgba(0,0,16,0.1);
   --blue: #0d71e3;
@@ -258,7 +258,7 @@ input + svg {
   position: relative;
 }
 
-.dropbtn {
+.dropdown-btn {
   display: block;
   background: var(--blue);
   color: white;
@@ -266,23 +266,28 @@ input + svg {
   font-size: 1em;
   font-family: 'Lato', sans-serif;
   border: none;
+  border-radius: .3em;
   cursor: pointer;
   overflow: hidden;
 }
 
-.dropbtn i {
+.dropdown-btn.open {
+  border-radius: .3em .3em 0 0;
+}
+
+.dropdown-btn i {
   margin-left: 1.2em;
   transition: transform 300ms;
 }
 
 @media (min-width: 768px) {
-  .dropbtn {
+  .dropdown-btn {
     padding: .85em 1.2em;
     font-size: 1.1em;
   }
 }
 
-.dropbtn.open i {
+.dropdown-btn.open i {
   margin-left: 1.2em;
   transform: rotate(180deg);
 }
@@ -294,11 +299,10 @@ input + svg {
   opacity: 0;
   position: absolute;
   background: #fff;
-  width: 100%;
-  max-width: 150px;
+  min-width: 100%;
   box-shadow: var(--bottom-shadow);
-  transition: all 500ms ease;
-  z-index: 105;
+  transition: all 600ms ease;
+  z-index: 106;
 }
 
 .dropdown-content a {
@@ -318,7 +322,6 @@ input + svg {
     padding: 14px 16px;
     font-size: 1.1em;
   }
-  
 }
 
 .dropdown-content.active {
@@ -337,13 +340,14 @@ a.current {
   background: var(--lighter-grey);
 }
 
-a.sort-option {
+a.sort-option, a.results-per-option {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.sort-option i {
+.sort-option i,
+.results-per-option i {
   visibility: hidden;
 }
 
@@ -426,7 +430,7 @@ a.sort-option {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2rem 1.5rem 1.5rem;
+  padding: 1.75rem 1.5rem 1.5rem;
   background-color: white;
   text-align: center;
   width: 100%;
@@ -437,33 +441,59 @@ a.sort-option {
 }
 
 .beer--name {
-  margin: 1rem auto;
-  font-size: 1.2rem;
+  margin: 1em auto 1.2em;
+  font-size: 1.2em;
   font-weight: 600;
 }
 
-.beer--card .beer--img {
+.beer--img {
   margin: auto;
-  height: 20rem;
+  height: 16em;
+  margin: 1em auto .5em;
+
 }
 
 .beer--info {
   display: flex;
   justify-content: space-between;
+  color: var(--dark-grey);
 }
 
-.toggle--info {
+.toggle--info-bg {
   position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  font-size: 1rem;
-  color: var(--dark-grey);
+  width: 100%;
+  height: 2.5em;
+  top: 0;
+  left: 0;
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg,
+    rgba(255,255,255,0.5) 0%, 
+    rgba(255,255,255,1) 20%,
+    rgba(255,255,255,1) 100%);
+  z-index: 105;
+}
+
+.toggle--text {
+  position: absolute;
+  height: 1.75em;
+  top: 1em;
+  left: 1em;
+  font-size: 1em;
   cursor: pointer;
   opacity: 1;
-  z-index: 103;
+  color: var(--dark-grey);
+  z-index: 105;
 }
 
-.toggle--info:hover {
+.toggle--text:after {
+  content: '+';
+}
+
+.toggle--text.open:after {
+  content: '-';
+}
+
+.toggle--text:hover {
   color: var(--black);
 }
 
@@ -471,28 +501,29 @@ a.sort-option {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 3.5rem 1.75rem 1.75rem;
+  padding: 3.5em 2em 2em;
   width: 100%;
   height: 100%;
   background-color: white;
   overflow: scroll;
   opacity: 0;
   transition: opacity 0.5s ease;
-  z-index: 100;
+  z-index: 104;
 }
 
-.toggle--info:hover {
+.toggle--text:hover {
   color: var(--black);
 }
 
 .beer--content.show-content {
-  opacity: .9;
+  opacity: .95;
 }
 
-.beer--content.beer--content .beer--name {
-  margin: -0.75rem auto .75rem auto;
-  font-size: 1.75rem;
+.beer--content .beer--name {
+  margin: -.125em auto .75em auto;
+  font-size: 1.5rem;
   line-height: 1.1;
+  color: var(--dark-grey);
 }
 
 .beer--tagline {
@@ -507,8 +538,3 @@ a.sort-option {
   line-height: 1.5;
 }
 
-.beer--food-pairing {
-  font-style: italic;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
