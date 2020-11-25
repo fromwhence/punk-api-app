@@ -22,8 +22,8 @@
 }) (document, window);
 
 // Variables
-let log = console.log;
 const urlBase = 'https://api.punkapi.com/v2/beers?page=';
+const beerGrid = document.getElementById('beers');
 const filterABV = document.getElementById('filterABV');
 const filterIBU = document.getElementById('filterIBU');
 const pagerNumber = document.getElementById('pageNumber');
@@ -78,7 +78,7 @@ filterIBU.addEventListener('change', e => {
   getBeers();
 })
 
-// sort results by data (A-Z)
+// Sort results by data (A-Z)
 const sortName = (beers) => {
   beers.sort(function(a, b) {
     let nameA = a.name.toUpperCase();
@@ -93,26 +93,34 @@ const sortName = (beers) => {
   }
 )};
 
-// sort by ABV (ascending)
+// Sort by ABV (ascending)
 const sortABV = (beers) => {
   beers.sort(function(a, b) {
     return a.abv - b.abv;
   }
 )};
 
-// sort by IBU (ascending)
+// Sort by IBU (ascending)
 const sortIBU = (beers) => {
   beers.sort(function(a, b) {
     return a.ibu - b.ibu;
   }
 )};
 
-// api call
+// Fade in results 
+const fadeInContent = () => {
+  beerGrid.classList.add('fade-in');
+  setTimeout(function() { 
+    beerGrid.classList.remove('fade-in');
+  }, 1500);
+};
+
+// API call
 async function getBeers() {
   try {
     const url = urlBase + page + perPage + optionsABV + optionsIBU;
-
-    // fetch
+    console.log(url);
+    // Fetch
     const beerPromise = await fetch(url);
     const beers = await beerPromise.json();
 
@@ -120,11 +128,8 @@ async function getBeers() {
     sortMenuItems[0].classList.contains('current') ? sortName(beers) : null;
     sortMenuItems[1].classList.contains('current') ? sortABV(beers) : null;
     sortMenuItems[2].classList.contains('current') ? sortIBU(beers) : null;
-
-    // Change results per page
-
     
-    // pagination
+    // Pagination
     pageNumber.innerText = page;
 
     if(page === 1) {
@@ -138,7 +143,7 @@ async function getBeers() {
       nextPage.disabled = false;
     }
 
-    // render beer data
+    // Render beer data
     const beersDiv = document.getElementById('beers');
 
     let beerHtml = "";
@@ -170,6 +175,7 @@ async function getBeers() {
   } catch(e) {
     log(e);
   }
+  fadeInContent();
 }
 
 prevPage.addEventListener('click', () => {
@@ -183,18 +189,17 @@ nextPage.addEventListener('click', () => {
 
 getBeers();
 
+
 // Toggle additional info on individual beer card
 const beerResults = document.getElementById('beers');
-
 beerResults.addEventListener('click', function(e) {
-  e.stopPropagation();
   if (e.target.classList.contains('toggle--text')) {
     e.target.classList.toggle('open');
     e.target.nextElementSibling.classList.toggle('show-content');
   }
 }, true);
 
-// Used to remove current class from all siblings
+// Used to remove current class from all siblings for menu items
 const getSiblings = (elem) => {
   let siblings = [];
   let sibling = elem.parentNode.firstChild;
@@ -207,7 +212,7 @@ const getSiblings = (elem) => {
   return siblings;
 };
 
-// Sort results
+// Sort results menu
 const sortMenuItems = Array.from(document.getElementsByClassName('sort-option'));
 const sortDropdownBtn = document.querySelector('.dropdown-btn');
 
@@ -234,7 +239,35 @@ for (let i = 0; i < sortMenuItems.length; i++) {
   }, true);
 };
 
+// Results per page menu
+const resultsPerPage = Array.from(document.getElementsByClassName('results-per-option'));
+const resultsDropdownBtn = document.querySelector('.results-per-btn');
+
 // Results per page button and menu appearance 
-const resultsPerPgOptions = Array.from(document.getElementsByClassName('results-per-option'));
-console.log(resultsPerPgOptions);
+resultsDropdownBtn.addEventListener('click', function() {
+  resultsDropdownBtn.classList.toggle('open');
+  resultsDropdownBtn.nextElementSibling.classList.toggle('active');
+})
+
+// Select results per page quantity
+for (let i = 0; i < resultsPerPage.length; i++) {
+  resultsPerPage[i].addEventListener('click', function() {
+    if (!resultsPerPage[i].classList.contains('current')) {
+      resultsPerPage[i].classList.toggle('current');
+      itemsPerPage = resultsPerPage[i].innerText;
+      perPage = `&per_page=${itemsPerPage}`;
+      resultsDropdownBtn.classList.remove('open');
+      resultsDropdownBtn.nextElementSibling.classList.remove('active');
+    };
+    let removeCurrent = getSiblings(resultsPerPage[i]);
+    removeCurrent.shift();
+    removeCurrent.forEach(item => {
+      item.classList.remove('current');
+    });
+    getBeers();
+  }, true);
+};
+
+
+
 

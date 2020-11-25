@@ -6,7 +6,7 @@
   --off-white: #f2f2f2;
   --black: rgba(0,0,16,0.8);
   --dark-grey: rgba(0,0,16,0.7);
-  --light-grey: rgba(0,0,16,0.2);
+  --light-grey: rgba(0,0,16,0.3);
   --lighter-grey: rgba(0,0,16,0.1);
   --blue: #0d71e3;
   --light-blue: #1dc3ff;
@@ -21,7 +21,6 @@
 }
 
 * {
-  /* border: 1px solid lightgreen; */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -109,7 +108,7 @@ header h1 {
     align-items: center;
     margin: auto;
     padding: 0.5rem 2rem;
-    max-width: 850px;
+    max-width: 900px;
   }
 }
 
@@ -130,6 +129,12 @@ header h1 {
   .filter-card {
     align-items: center;
     max-width: 380px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .filter-card:first-of-type {
+    margin-right: 5em;
   }
 }
 
@@ -247,8 +252,8 @@ input + svg {
 @media (min-width: 1024px) {
   .sortby-pagination-container {
     justify-content: space-between;
-    max-width: 720px;
-    padding: .85em .5em 0 .35em;
+    max-width: 800px;
+    padding: .85em .75em 0 .3em;
   }
 }
 
@@ -260,12 +265,12 @@ input + svg {
 
 .dropdown-btn {
   display: block;
-  background: var(--blue);
-  color: white;
+  background: white;
+  color: var(--dark-grey);
   padding: .85em 1em;
   font-size: 1em;
   font-family: 'Lato', sans-serif;
-  border: none;
+  border: 1px solid var(--light-grey);
   border-radius: .3em;
   cursor: pointer;
   overflow: hidden;
@@ -273,11 +278,13 @@ input + svg {
 
 .dropdown-btn.open {
   border-radius: .3em .3em 0 0;
+  border-bottom: 1px solid white;
 }
 
 .dropdown-btn i {
   margin-left: 1.2em;
-  transition: transform 300ms;
+  transition: transform 400ms;
+  color: var(--dark-grey);
 }
 
 @media (min-width: 768px) {
@@ -301,12 +308,14 @@ input + svg {
   background: #fff;
   min-width: 100%;
   box-shadow: var(--bottom-shadow);
+  border: 1px solid var(--light-grey);
+  border-radius: 0 0 .3em .3em;
   transition: all 600ms ease;
   z-index: 106;
 }
 
 .dropdown-content a {
-  color: var(--black);
+  color: var(--dark-grey);
   padding: .9em 1em;
   text-decoration: none;
   display: block;
@@ -341,6 +350,7 @@ a.current {
 }
 
 a.sort-option, a.results-per-option {
+  padding-left: 1.15em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -349,6 +359,7 @@ a.sort-option, a.results-per-option {
 .sort-option i,
 .results-per-option i {
   visibility: hidden;
+  color: var(--dark-grey);
 }
 
 .current i {
@@ -405,6 +416,16 @@ a.sort-option, a.results-per-option {
   color: var(--disabled);
 }
 
+.results-per-page {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .results-per-page {
+    display: block;
+  }
+}
+
 /* beers */
 .card {
   display: flex;
@@ -415,9 +436,30 @@ a.sort-option, a.results-per-option {
 
 #beers {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   grid-gap: 1rem;
+  opacity: 1;
 }
+
+#beers.fade-in {
+  -webkit-animation-name: resultsFadeIn;
+  -webkit-animation-duration: 750ms;
+  animation-name: resultsFadeIn;
+  animation-duration: 750ms;
+  animation-fill-mode: forwards;
+}
+
+/* Animation */
+@keyframes resultsFadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@-webkit-keyframes resultsFadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
 
 .beer-wrapper {
   justify-content: center;
@@ -476,8 +518,8 @@ a.sort-option, a.results-per-option {
 .toggle--text {
   position: absolute;
   height: 1.75em;
-  top: 1em;
-  left: 1em;
+  top: .85em;
+  left: .85em;
   font-size: 1em;
   cursor: pointer;
   opacity: 1;
@@ -493,7 +535,8 @@ a.sort-option, a.results-per-option {
   content: '-';
 }
 
-.toggle--text:hover {
+.toggle--text:hover,
+.toggle--text:focus {
   color: var(--black);
 }
 
@@ -501,7 +544,7 @@ a.sort-option, a.results-per-option {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 3.5em 2em 2em;
+  padding: 3.5em 1.75em 2em;
   width: 100%;
   height: 100%;
   background-color: white;
@@ -511,16 +554,12 @@ a.sort-option, a.results-per-option {
   z-index: 104;
 }
 
-.toggle--text:hover {
-  color: var(--black);
-}
-
 .beer--content.show-content {
   opacity: .95;
 }
 
 .beer--content .beer--name {
-  margin: -.125em auto .75em auto;
+  margin: -.5em auto .75em;
   font-size: 1.5rem;
   line-height: 1.1;
   color: var(--dark-grey);
@@ -537,4 +576,3 @@ a.sort-option, a.results-per-option {
   font-size: 0.9rem;
   line-height: 1.5;
 }
-
