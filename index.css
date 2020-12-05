@@ -4,17 +4,17 @@
 /* custom properties */
 :root {
   --off-white: #f2f2f2;
-  --black: rgba(0,0,16,0.8);
-  --dark-grey: rgba(0,0,16,0.7);
-  --light-grey: rgba(0,0,16,0.3);
-  --lighter-grey: rgba(0,0,16,0.1);
+  --black: rgba(0, 0, 16, 0.8);
+  --dark-grey: rgba(0, 0, 16, 0.7);
+  --light-grey: rgba(0, 0, 16, 0.3);
+  --lighter-grey: rgba(0, 0, 16, 0.1);
   --blue: #0d71e3;
   --light-blue: #1dc3ff;
   --lighter-blue: #91e2ff;
   --lightest-blue: #f7fbff;
   --green: #00cc4f;
   --orange: #ffb144;
-  --disabled: rgba(0,0,16,0.35);
+  --disabled: rgba(0, 0, 16, 0.35);
   --shadow: 0 0.5rem 1rem rgba(0, 0, 16, 0.19),
     0 0.3rem 0.3rem rgba(0, 0, 16, 0.23);
   --bottom-shadow: 0 0.3rem 0.3rem rgba(0, 0, 16, 0.19);
@@ -31,10 +31,11 @@
 }
 
 /* resets */
-body, html {
+body,
+html {
   height: 100vh;
   background-color: var(--off-white);
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   color: var(--black);
 }
 
@@ -253,7 +254,7 @@ input + svg {
   .sortby-pagination-container {
     justify-content: space-between;
     max-width: 800px;
-    padding: .85em .75em 0 .3em;
+    padding: 0.85em 0.75em 0 0.3em;
   }
 }
 
@@ -267,17 +268,17 @@ input + svg {
   display: block;
   background: white;
   color: var(--dark-grey);
-  padding: .85em 1em .9em;
+  padding: 0.85em 1em 0.9em;
   font-size: 1em;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   border: 1px solid var(--light-grey);
-  border-radius: .3em;
+  border-radius: 0.3em;
   cursor: pointer;
   overflow: hidden;
 }
 
 .dropdown-btn.open {
-  border-radius: .3em .3em 0 0;
+  border-radius: 0.3em 0.3em 0 0;
 }
 
 .dropdown-btn i {
@@ -288,7 +289,7 @@ input + svg {
 
 @media (min-width: 768px) {
   .dropdown-btn {
-    padding: .85em 1.2em .95em;
+    padding: 0.85em 1.2em 0.95em;
     font-size: 1.1em;
   }
 }
@@ -309,14 +310,14 @@ input + svg {
   box-shadow: var(--bottom-shadow);
   border: 1px solid var(--light-grey);
   border-top: none;
-  border-radius: 0 0 .3em .3em;
+  border-radius: 0 0 0.3em 0.3em;
   transition: all 600ms ease;
   z-index: 106;
 }
 
 .dropdown-content a {
   color: var(--dark-grey);
-  padding: .9em 1em .9em 1.25em;
+  padding: 0.9em 1em 0.9em 1.25em;
   text-decoration: none;
   display: block;
   transition: 250ms;
@@ -349,7 +350,8 @@ a.current {
   background: var(--lighter-grey);
 }
 
-a.sort-option, a.results-per-option {
+a.sort-option,
+a.results-per-option {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -383,7 +385,7 @@ a.sort-option, a.results-per-option {
   display: flex;
   justify-self: center;
   align-items: center;
-  margin: 0 .3em;
+  margin: 0 0.3em;
 }
 
 .page-btn {
@@ -392,7 +394,7 @@ a.sort-option, a.results-per-option {
   font-size: 2.25rem;
   color: var(--black);
   padding: 0.1rem 0.275rem;
-  transition: color .3s ease;
+  transition: color 0.3s ease;
 }
 
 @media (min-width: 768px) {
@@ -450,15 +452,22 @@ a.sort-option, a.results-per-option {
 
 /* Animation */
 @keyframes resultsFadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes resultsFadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
 
 .beer-wrapper {
   justify-content: center;
@@ -490,8 +499,7 @@ a.sort-option, a.results-per-option {
 .beer--img {
   margin: auto;
   height: 16em;
-  margin: 1em auto .5em;
-
+  margin: 1em auto 0.5em;
 }
 
 .beer--info {
@@ -506,19 +514,21 @@ a.sort-option, a.results-per-option {
   height: 2.65em;
   top: 0;
   left: 0;
-  background: rgb(255,255,255);
-  background: linear-gradient(0deg,
-    rgba(255,255,255,0.5) 0%, 
-    rgba(255,255,255,1) 20%,
-    rgba(255,255,255,1) 100%);
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 1) 100%
+  );
   z-index: 105;
 }
 
 .toggle--text {
   position: absolute;
   height: 1.75em;
-  top: .9em;
-  left: .9em;
+  top: 0.9em;
+  left: 0.9em;
   font-size: 1em;
   cursor: pointer;
   opacity: 1;
@@ -527,11 +537,11 @@ a.sort-option, a.results-per-option {
 }
 
 .toggle--text:after {
-  content: '+';
+  content: "+";
 }
 
 .toggle--text.open:after {
-  content: '-';
+  content: "-";
 }
 
 .toggle--text:hover,
@@ -554,11 +564,11 @@ a.sort-option, a.results-per-option {
 }
 
 .beer--content.show-content {
-  opacity: .95;
+  opacity: 0.95;
 }
 
 .beer--content .beer--name {
-  margin: -.4em auto .75em;
+  margin: -0.4em auto 0.75em;
   font-size: 1.5rem;
   line-height: 1.1;
   color: var(--dark-grey);
