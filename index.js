@@ -254,7 +254,7 @@ for (let i = 0; i < sortMenuItems.length; i++) {
   );
 }
 
-// Results per page menu
+// Change number of results per page
 const resultsPerPage = Array.from(
   document.getElementsByClassName("results-per-option")
 );
