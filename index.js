@@ -1,20 +1,20 @@
-"use strict";
+'use strict';
 // Removes :focus outline for mouse users
 (function (document, window) {
   if (!document || !window) {
     return;
   }
   var styleText =
-    "::-moz-focus-inner{border:0 !important;}:focus{outline: none !important;";
-  var unfocus_style = document.createElement("STYLE");
+    '::-moz-focus-inner{border:0 !important;}:focus{outline: none !important;';
+  var unfocus_style = document.createElement('STYLE');
 
   window.unfocus = function () {
-    document.getElementsByTagName("HEAD")[0].appendChild(unfocus_style);
-    document.addEventListener("mousedown", function () {
-      unfocus_style.innerHTML = styleText + "}";
+    document.getElementsByTagName('HEAD')[0].appendChild(unfocus_style);
+    document.addEventListener('mousedown', function () {
+      unfocus_style.innerHTML = styleText + '}';
     });
-    document.addEventListener("keydown", function () {
-      unfocus_style.innerHTML = "";
+    document.addEventListener('keydown', function () {
+      unfocus_style.innerHTML = '';
     });
   };
   unfocus.style = function (style) {
@@ -24,37 +24,37 @@
 })(document, window);
 
 // Variables
-const urlBase = "https://api.punkapi.com/v2/beers?page=";
-const beerGrid = document.getElementById("beers");
-const filterABV = document.getElementById("filterABV");
-const filterIBU = document.getElementById("filterIBU");
-const pagerNumber = document.getElementById("pageNumber");
-const prevPage = document.getElementById("prevPage");
-const nextPage = document.getElementById("nextPage");
+const urlBase = 'https://api.punkapi.com/v2/beers?page=';
+const beerGrid = document.getElementById('beers');
+const filterABV = document.getElementById('filterABV');
+const filterIBU = document.getElementById('filterIBU');
+const pagerNumber = document.getElementById('pageNumber');
+const prevPage = document.getElementById('prevPage');
+const nextPage = document.getElementById('nextPage');
 
 let itemsPerPage = 24;
-let optionsABV = "",
-  optionsIBU = "";
+let optionsABV = '',
+  optionsIBU = '';
 let page = 1;
 let perPage = `&per_page=${itemsPerPage}`;
 let infoTextLinks;
 
 // Filters
-filterABV.addEventListener("change", function (e) {
+filterABV.addEventListener('change', function (e) {
   const value = e.target.value;
 
   switch (value) {
-    case "all":
-      optionsABV = "";
+    case 'all':
+      optionsABV = '';
       break;
-    case "weak":
-      optionsABV = "&abv_lt=4.6";
+    case 'weak':
+      optionsABV = '&abv_lt=4.6';
       break;
-    case "medium":
-      optionsABV = "&abv_gt=4.5&abv_lt-7.6";
+    case 'medium':
+      optionsABV = '&abv_gt=4.5&abv_lt-7.6';
       break;
-    case "strong":
-      optionsABV = "&abv_gt=7.5";
+    case 'strong':
+      optionsABV = '&abv_gt=7.5';
       break;
   }
 
@@ -62,21 +62,21 @@ filterABV.addEventListener("change", function (e) {
   getBeers();
 });
 
-filterIBU.addEventListener("change", function (e) {
+filterIBU.addEventListener('change', function (e) {
   const value = e.target.value;
 
   switch (value) {
-    case "all":
-      optionsIBU = "";
+    case 'all':
+      optionsIBU = '';
       break;
-    case "weak":
-      optionsIBU = "&ibu_lt=35";
+    case 'weak':
+      optionsIBU = '&ibu_lt=35';
       break;
-    case "medium":
-      optionsIBU = "&ibu_gt=34&ibu_lt=75";
+    case 'medium':
+      optionsIBU = '&ibu_gt=34&ibu_lt=75';
       break;
-    case "strong":
-      optionsIBU = "&ibu_gt=74";
+    case 'strong':
+      optionsIBU = '&ibu_gt=74';
       break;
   }
 
@@ -115,9 +115,9 @@ const sortIBU = function (beers) {
 
 // Fade in results
 const fadeInContent = function () {
-  beerGrid.classList.add("fade-in");
+  beerGrid.classList.add('fade-in');
   setTimeout(function () {
-    beerGrid.classList.remove("fade-in");
+    beerGrid.classList.remove('fade-in');
   }, 1500);
 };
 
@@ -131,9 +131,9 @@ async function getBeers() {
     const beers = await beerPromise.json();
 
     // Sort results by name, abv or ibu
-    sortMenuItems[0].classList.contains("current") ? sortName(beers) : null;
-    sortMenuItems[1].classList.contains("current") ? sortABV(beers) : null;
-    sortMenuItems[2].classList.contains("current") ? sortIBU(beers) : null;
+    sortMenuItems[0].classList.contains('current') ? sortName(beers) : null;
+    sortMenuItems[1].classList.contains('current') ? sortABV(beers) : null;
+    sortMenuItems[2].classList.contains('current') ? sortIBU(beers) : null;
 
     // Pagination
     pageNumber.innerText = page;
@@ -150,10 +150,10 @@ async function getBeers() {
     }
 
     // Render beer data
-    const beersDiv = document.getElementById("beers");
+    const beersDiv = document.getElementById('beers');
 
-    let beerHtml = "";
-    const genericBottle = "images/generic-bottle.png";
+    let beerHtml = '';
+    const genericBottle = 'images/generic-bottle.png';
 
     beers.forEach(function (beer) {
       beerHtml += `
@@ -164,8 +164,8 @@ async function getBeers() {
             }'/>
             <h3 class='beer--name'>${beer.name}</h3>
             <span class='beer--info'>
-              <span>ABV: ${beer.abv ? beer.abv : "N/A"}%</span>
-              <span>IBU: ${beer.ibu ? beer.ibu : "N/A"}</span>
+              <span>ABV: ${beer.abv ? beer.abv : 'N/A'}%</span>
+              <span>IBU: ${beer.ibu ? beer.ibu : 'N/A'}</span>
             </span>
           </div>
           <div class='toggle--info-bg'></div>
@@ -184,24 +184,23 @@ async function getBeers() {
   }
 
   // Display additional beer info
-  infoTextLinks = Array.from(document.querySelectorAll(".toggle--text"));
+  const infoTextLinks = Array.from(document.querySelectorAll('.toggle--text'));
 
   for (let i = 0; i < infoTextLinks.length; i++) {
-    infoTextLinks[i].addEventListener("click", function () {
-      console.log("Info link clicked");
-      infoTextLinks[i].classList.toggle("open");
-      infoTextLinks[i].nextElementSibling.classList.toggle("show-content");
+    infoTextLinks[i].addEventListener('click', function () {
+      infoTextLinks[i].classList.toggle('open');
+      infoTextLinks[i].nextElementSibling.classList.toggle('show-content');
     });
   }
 
   fadeInContent();
 }
 
-prevPage.addEventListener("click", function () {
+prevPage.addEventListener('click', function () {
   page--;
   getBeers();
 });
-nextPage.addEventListener("click", function () {
+nextPage.addEventListener('click', function () {
   page++;
   getBeers();
 });
@@ -223,30 +222,30 @@ const getSiblings = function (elem) {
 
 // Sort results menu
 const sortMenuItems = Array.from(
-  document.getElementsByClassName("sort-option")
+  document.getElementsByClassName('sort-option')
 );
-const sortDropdownBtn = document.querySelector(".dropdown-btn");
+const sortDropdownBtn = document.querySelector('.dropdown-btn');
 
 // Sort results button and menu appearance
-sortDropdownBtn.addEventListener("click", function () {
-  sortDropdownBtn.classList.toggle("open");
-  sortDropdownBtn.nextElementSibling.classList.toggle("active");
+sortDropdownBtn.addEventListener('click', function () {
+  sortDropdownBtn.classList.toggle('open');
+  sortDropdownBtn.nextElementSibling.classList.toggle('active');
 });
 
 // Select sort option (Name, ABV, IBU)
 for (let i = 0; i < sortMenuItems.length; i++) {
   sortMenuItems[i].addEventListener(
-    "click",
+    'click',
     function () {
-      if (!sortMenuItems[i].classList.contains("current")) {
-        sortMenuItems[i].classList.toggle("current");
-        sortDropdownBtn.classList.remove("open");
-        sortDropdownBtn.nextElementSibling.classList.remove("active");
+      if (!sortMenuItems[i].classList.contains('current')) {
+        sortMenuItems[i].classList.toggle('current');
+        sortDropdownBtn.classList.remove('open');
+        sortDropdownBtn.nextElementSibling.classList.remove('active');
       }
       let removeCurrent = getSiblings(sortMenuItems[i]);
       removeCurrent.shift();
       removeCurrent.forEach(function (item) {
-        item.classList.remove("current");
+        item.classList.remove('current');
       });
       getBeers();
     },
@@ -256,32 +255,32 @@ for (let i = 0; i < sortMenuItems.length; i++) {
 
 // Change number of results per page
 const resultsPerPage = Array.from(
-  document.getElementsByClassName("results-per-option")
+  document.getElementsByClassName('results-per-option')
 );
-const resultsDropdownBtn = document.querySelector(".results-per-btn");
+const resultsDropdownBtn = document.querySelector('.results-per-btn');
 
 // Results per page button and menu appearance
-resultsDropdownBtn.addEventListener("click", function () {
-  resultsDropdownBtn.classList.toggle("open");
-  resultsDropdownBtn.nextElementSibling.classList.toggle("active");
+resultsDropdownBtn.addEventListener('click', function () {
+  resultsDropdownBtn.classList.toggle('open');
+  resultsDropdownBtn.nextElementSibling.classList.toggle('active');
 });
 
 // Select results per page quantity
 for (let i = 0; i < resultsPerPage.length; i++) {
   resultsPerPage[i].addEventListener(
-    "click",
+    'click',
     function () {
-      if (!resultsPerPage[i].classList.contains("current")) {
-        resultsPerPage[i].classList.toggle("current");
+      if (!resultsPerPage[i].classList.contains('current')) {
+        resultsPerPage[i].classList.toggle('current');
         itemsPerPage = resultsPerPage[i].innerText;
         perPage = `&per_page=${itemsPerPage}`;
-        resultsDropdownBtn.classList.remove("open");
-        resultsDropdownBtn.nextElementSibling.classList.remove("active");
+        resultsDropdownBtn.classList.remove('open');
+        resultsDropdownBtn.nextElementSibling.classList.remove('active');
       }
       let removeCurrent = getSiblings(resultsPerPage[i]);
       removeCurrent.shift();
       removeCurrent.forEach(function (item) {
-        item.classList.remove("current");
+        item.classList.remove('current');
       });
       getBeers();
     },
