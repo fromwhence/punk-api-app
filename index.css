@@ -1,5 +1,5 @@
 /* fonts */
-@import url("https://fonts.googleapis.com/css2?family=Lato&family=Old+Standard+TT&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Old+Standard+TT&display=swap');
 
 /* custom properties */
 :root {
@@ -35,7 +35,7 @@ body,
 html {
   height: 100vh;
   background-color: var(--off-white);
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   color: var(--black);
 }
 
@@ -211,7 +211,7 @@ svg {
   margin: 0.5rem;
 }
 
-input[type="radio"] {
+input[type='radio'] {
   position: absolute;
   opacity: 0;
 }
@@ -270,7 +270,7 @@ input + svg {
   color: var(--dark-grey);
   padding: 0.85em 1em 0.9em;
   font-size: 1em;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   border: 1px solid var(--light-grey);
   border-radius: 0.3em;
   cursor: pointer;
@@ -313,6 +313,7 @@ input + svg {
   border-radius: 0 0 0.3em 0.3em;
   transition: all 600ms ease;
   z-index: 106;
+  pointer-events: none;
 }
 
 .dropdown-content a {
@@ -338,6 +339,7 @@ input + svg {
   height: auto;
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 a.current {
@@ -537,11 +539,11 @@ a.results-per-option {
 }
 
 .toggle--text:after {
-  content: "+";
+  content: '+';
 }
 
 .toggle--text.open:after {
-  content: "-";
+  content: '-';
 }
 
 .toggle--text:hover,

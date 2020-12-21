@@ -37,7 +37,6 @@ let optionsABV = '',
   optionsIBU = '';
 let page = 1;
 let perPage = `&per_page=${itemsPerPage}`;
-let infoTextLinks;
 
 // Filters
 filterABV.addEventListener('change', function (e) {
@@ -84,11 +83,11 @@ filterIBU.addEventListener('change', function (e) {
   getBeers();
 });
 
-// Sort results by data (A-Z)
+// Sort results by name (A-Z)
 const sortName = function (beers) {
   beers.sort(function (a, b) {
-    let nameA = a.name.toUpperCase();
-    let nameB = b.name.toUpperCase();
+    let nameA = a.name.toLowerCase();
+    let nameB = b.name.toLowerCase();
     if (nameA < nameB) {
       return -1;
     }
@@ -100,15 +99,15 @@ const sortName = function (beers) {
 };
 
 // Sort by ABV (ascending)
-const sortABV = function (beers) {
-  beers.sort(function (a, b) {
+const sortABV = function (beerResults) {
+  beerResults.sort(function (a, b) {
     return a.abv - b.abv;
   });
 };
 
 // Sort by IBU (ascending)
-const sortIBU = function (beers) {
-  beers.sort(function (a, b) {
+const sortIBU = function (beerResults) {
+  beerResults.sort(function (a, b) {
     return a.ibu - b.ibu;
   });
 };
@@ -125,7 +124,6 @@ const fadeInContent = function () {
 async function getBeers() {
   try {
     const url = urlBase + page + perPage + optionsABV + optionsIBU;
-    console.log(url);
     // Fetch
     const beerPromise = await fetch(url);
     const beers = await beerPromise.json();
@@ -182,16 +180,16 @@ async function getBeers() {
   } catch (e) {
     log(e);
   }
-
   // Display additional beer info
-  const infoTextLinks = Array.from(document.querySelectorAll('.toggle--text'));
+  const infoTextLinks = document.querySelectorAll('.toggle--text');
+  console.log(infoTextLinks);
 
-  for (let i = 0; i < infoTextLinks.length; i++) {
-    infoTextLinks[i].addEventListener('click', function () {
-      infoTextLinks[i].classList.toggle('open');
-      infoTextLinks[i].nextElementSibling.classList.toggle('show-content');
-    });
-  }
+  infoTextLinks.forEach(info =>
+    info.addEventListener('click', function () {
+      info.classList.toggle('open');
+      info.nextElementSibling.classList.toggle('show-content');
+    })
+  );
 
   fadeInContent();
 }
@@ -225,6 +223,10 @@ const sortMenuItems = Array.from(
   document.getElementsByClassName('sort-option')
 );
 const sortDropdownBtn = document.querySelector('.dropdown-btn');
+const dropDownContent = Array.from(
+  document.querySelectorAll('.dropdown-content')
+);
+console.log(dropDownContent);
 
 // Sort results button and menu appearance
 sortDropdownBtn.addEventListener('click', function () {
@@ -247,7 +249,6 @@ for (let i = 0; i < sortMenuItems.length; i++) {
       removeCurrent.forEach(function (item) {
         item.classList.remove('current');
       });
-      getBeers();
     },
     true
   );
