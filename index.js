@@ -182,7 +182,6 @@ async function getBeers() {
   }
   // Display additional beer info
   const infoTextLinks = document.querySelectorAll('.toggle--text');
-  console.log(infoTextLinks);
 
   infoTextLinks.forEach(info =>
     info.addEventListener('click', function () {
@@ -223,10 +222,6 @@ const sortMenuItems = Array.from(
   document.getElementsByClassName('sort-option')
 );
 const sortDropdownBtn = document.querySelector('.dropdown-btn');
-const dropDownContent = Array.from(
-  document.querySelectorAll('.dropdown-content')
-);
-console.log(dropDownContent);
 
 // Sort results button and menu appearance
 sortDropdownBtn.addEventListener('click', function () {
@@ -249,6 +244,7 @@ for (let i = 0; i < sortMenuItems.length; i++) {
       removeCurrent.forEach(function (item) {
         item.classList.remove('current');
       });
+      getBeers();
     },
     true
   );
