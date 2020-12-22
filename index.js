@@ -231,23 +231,19 @@ sortDropdownBtn.addEventListener('click', function () {
 
 // Select sort option (Name, ABV, IBU)
 for (let i = 0; i < sortMenuItems.length; i++) {
-  sortMenuItems[i].addEventListener(
-    'click',
-    function () {
-      if (!sortMenuItems[i].classList.contains('current')) {
-        sortMenuItems[i].classList.toggle('current');
-        sortDropdownBtn.classList.remove('open');
-        sortDropdownBtn.nextElementSibling.classList.remove('active');
-      }
-      let removeCurrent = getSiblings(sortMenuItems[i]);
-      removeCurrent.shift();
-      removeCurrent.forEach(function (item) {
-        item.classList.remove('current');
-      });
-      getBeers();
-    },
-    true
-  );
+  sortMenuItems[i].addEventListener('click', function () {
+    if (!sortMenuItems[i].classList.contains('current')) {
+      sortMenuItems[i].classList.toggle('current');
+      sortDropdownBtn.classList.remove('open');
+      sortDropdownBtn.nextElementSibling.classList.remove('active');
+    }
+    let removeCurrent = getSiblings(sortMenuItems[i]);
+    removeCurrent.shift();
+    removeCurrent.forEach(function (item) {
+      item.classList.remove('current');
+    });
+    getBeers();
+  });
 }
 
 // Change number of results per page
@@ -264,23 +260,19 @@ resultsDropdownBtn.addEventListener('click', function () {
 
 // Select results per page quantity
 for (let i = 0; i < resultsPerPage.length; i++) {
-  resultsPerPage[i].addEventListener(
-    'click',
-    function () {
-      if (!resultsPerPage[i].classList.contains('current')) {
-        resultsPerPage[i].classList.toggle('current');
-        itemsPerPage = resultsPerPage[i].innerText;
-        perPage = `&per_page=${itemsPerPage}`;
-        resultsDropdownBtn.classList.remove('open');
-        resultsDropdownBtn.nextElementSibling.classList.remove('active');
-      }
-      let removeCurrent = getSiblings(resultsPerPage[i]);
-      removeCurrent.shift();
-      removeCurrent.forEach(function (item) {
-        item.classList.remove('current');
-      });
-      getBeers();
-    },
-    true
-  );
+  resultsPerPage[i].addEventListener('click', function () {
+    if (!resultsPerPage[i].classList.contains('current')) {
+      resultsPerPage[i].classList.toggle('current');
+      itemsPerPage = resultsPerPage[i].innerText;
+      perPage = `&per_page=${itemsPerPage}`;
+      resultsDropdownBtn.classList.remove('open');
+      resultsDropdownBtn.nextElementSibling.classList.remove('active');
+    }
+    let removeCurrent = getSiblings(resultsPerPage[i]);
+    removeCurrent.shift();
+    removeCurrent.forEach(function (item) {
+      item.classList.remove('current');
+    });
+    getBeers();
+  });
 }
