@@ -96,6 +96,7 @@ const sortName = function (beers) {
     }
     return 0;
   });
+  sortDropdownBtn.innerHTML = `Sort by Name<i class="fas fa-chevron-down"></i>`;
 };
 
 // Sort by ABV (ascending)
@@ -103,6 +104,7 @@ const sortABV = function (beerResults) {
   beerResults.sort(function (a, b) {
     return a.abv - b.abv;
   });
+  sortDropdownBtn.innerHTML = `Sort by ABV<i class="fas fa-chevron-down"></i>`;
 };
 
 // Sort by IBU (ascending)
@@ -110,6 +112,7 @@ const sortIBU = function (beerResults) {
   beerResults.sort(function (a, b) {
     return a.ibu - b.ibu;
   });
+  sortDropdownBtn.innerHTML = `Sort by IBU<i class="fas fa-chevron-down"></i>`;
 };
 
 // Fade in results
@@ -221,6 +224,7 @@ const getSiblings = function (elem) {
 const sortMenuItems = Array.from(
   document.getElementsByClassName('sort-option')
 );
+
 const sortDropdownBtn = document.querySelector('.dropdown-btn');
 
 // Sort results button and menu appearance
@@ -250,7 +254,7 @@ for (let i = 0; i < sortMenuItems.length; i++) {
 const resultsPerPage = Array.from(
   document.getElementsByClassName('results-per-option')
 );
-const resultsDropdownBtn = document.querySelector('.results-per-btn');
+let resultsDropdownBtn = document.querySelector('.results-per-btn');
 
 // Results per page button and menu appearance
 resultsDropdownBtn.addEventListener('click', function () {
@@ -267,6 +271,8 @@ for (let i = 0; i < resultsPerPage.length; i++) {
       perPage = `&per_page=${itemsPerPage}`;
       resultsDropdownBtn.classList.remove('open');
       resultsDropdownBtn.nextElementSibling.classList.remove('active');
+      // Modifies dropdown button text to reflect selected items per page value
+      resultsDropdownBtn.innerHTML = `${itemsPerPage} per page <i class="fas fa-chevron-down"></i>`;
     }
     let removeCurrent = getSiblings(resultsPerPage[i]);
     removeCurrent.shift();

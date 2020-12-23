@@ -265,7 +265,10 @@ input + svg {
 }
 
 .dropdown-btn {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 185px;
   background: white;
   color: var(--dark-grey);
   padding: 0.85em 1em 0.9em;
@@ -275,6 +278,12 @@ input + svg {
   border-radius: 0.3em;
   cursor: pointer;
   overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .dropdown-btn {
+    min-width: 150px;
+  }
 }
 
 .dropdown-btn.open {
@@ -295,7 +304,6 @@ input + svg {
 }
 
 .dropdown-btn.open i {
-  margin-left: 1.2em;
   transform: rotate(-180deg);
 }
 
@@ -307,6 +315,7 @@ input + svg {
   position: absolute;
   background: #fff;
   min-width: 100%;
+  /* min-width: 180px; */
   box-shadow: var(--bottom-shadow);
   border: 1px solid var(--light-grey);
   border-top: none;
@@ -317,6 +326,9 @@ input + svg {
 }
 
 .dropdown-content a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: var(--dark-grey);
   padding: 0.9em 1em 0.9em 1.25em;
   text-decoration: none;
@@ -327,7 +339,7 @@ input + svg {
 
 @media (min-width: 768px) {
   .dropdown-content {
-    max-width: 171px;
+    max-width: 170px;
   }
 
   .dropdown-content a {
