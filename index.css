@@ -255,6 +255,14 @@ input + svg {
   justify-content: space-between;
   align-items: center;
   background-color: var(--off-white);
+  border-bottom: 1px solid var(--light-grey);
+  z-index: 105;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
 }
 
 .sortby-pagination {
@@ -528,7 +536,7 @@ a.results-per-option {
   width: 100%;
   pointer-events: none;
   opacity: 1;
-  z-index: 99;
+  z-index: 98;
   transition: opacity 0.5s ease;
 }
 
@@ -630,17 +638,6 @@ a.results-per-option {
 }
 
 /* List view */
-/* .beers-list {
-} */
-
-/* .list-view {
-  background-color: red;
-} */
-
-.beers-list {
-  border-top: 1px solid var(--light-grey);
-}
-
 .beers-container.list-view {
   padding: 0;
 }

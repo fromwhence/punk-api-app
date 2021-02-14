@@ -122,7 +122,6 @@ const getBeers = async function () {
     // Fetch
     const beerPromise = await fetch(url);
     const beers = await beerPromise.json();
-    console.log(beers);
 
     // Sort results by name, abv or ibu
     sortMenuItems[0].classList.contains('current') ? sortName(beers) : null;
@@ -264,6 +263,21 @@ nextPage.addEventListener('click', function () {
 });
 
 getBeers();
+
+// Sticky sort and pagination toolbar
+const sortPaginationBar = document.querySelector(
+  '.sortby-pagination-container'
+);
+const sticky = sortPaginationBar.offsetTop;
+
+function setStickyToolbar() {
+  if (window.pageYOffset > sticky) {
+    sortPaginationBar.classList.add('sticky');
+  } else {
+    sortPaginationBar.classList.remove('sticky');
+  }
+}
+window.onscroll = () => setStickyToolbar();
 
 // Used to remove current class from all siblings for menu items
 const getSiblings = function (elem) {
