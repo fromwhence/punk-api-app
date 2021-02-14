@@ -5,19 +5,20 @@
 :root {
   --off-white: #f2f2f2;
   --black: rgba(0, 0, 16, 0.8);
-  --dark-grey: rgba(0, 0, 16, 0.7);
+  --dark-grey: rgba(0, 0, 16, 0.65);
   --light-grey: rgba(0, 0, 16, 0.3);
   --lighter-grey: rgba(0, 0, 16, 0.1);
   --blue: #0d71e3;
+  --dark-blue: #0158bb;
   --light-blue: #1dc3ff;
   --lighter-blue: #91e2ff;
   --lightest-blue: #f7fbff;
   --green: #00cc4f;
   --orange: #ffb144;
-  --disabled: rgba(0, 0, 16, 0.35);
-  --shadow: 0 0.5rem 1rem rgba(0, 0, 16, 0.19),
+  --disabled: rgba(0, 0, 16, 0.25);
+  --shadow: 0 0.5rem 1rem rgba(0, 0, 16, 0.2),
     0 0.3rem 0.3rem rgba(0, 0, 16, 0.23);
-  --bottom-shadow: 0 0.3rem 0.3rem rgba(0, 0, 16, 0.19);
+  --bottom-shadow: 0 0.3rem 0.3rem rgba(0, 0, 16, 0.2);
 }
 
 * {
@@ -26,8 +27,13 @@
   box-sizing: border-box;
 }
 
-.beers + * {
+/* .beers + * {
   pointer-events: none;
+} */
+
+button {
+  padding: 0;
+  cursor: pointer;
 }
 
 /* resets */
@@ -71,16 +77,16 @@ header h1 {
 }
 
 /* main container */
-.container {
+/* .container {
   padding: 1rem 1.25rem;
-}
+} */
 
-#filters-container {
+.filters-container {
   background-color: white;
   width: 100%;
   height: auto;
   padding: 0.5rem 0;
-  border-bottom: 2px solid var(--light-grey);
+  border-bottom: 1px solid var(--light-grey);
   z-index: 999;
 }
 
@@ -91,7 +97,7 @@ header h1 {
 }
 
 @media (min-width: 500px) {
-  #filters-container {
+  .filters-container {
     padding: 0.25rem 0;
   }
 
@@ -107,7 +113,7 @@ header h1 {
   .filters {
     justify-content: center;
     align-items: center;
-    margin: auto;
+    margin: 0 auto;
     padding: 0.5rem 2rem;
     max-width: 900px;
   }
@@ -244,17 +250,28 @@ input + svg {
   display: flex;
   width: 100%;
   height: auto;
-  padding: 1rem 1.25rem 0;
-  margin: auto;
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--off-white);
+}
+
+.sortby-pagination {
+  display: flex;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--off-white);
 }
 
 @media (min-width: 1024px) {
-  .sortby-pagination-container {
+  .sortby-pagination {
     justify-content: space-between;
     max-width: 800px;
-    padding: 0.85em 0.75em 0 0.3em;
+    /* padding: 0.85em 0.75em 0 0.3em; */
   }
 }
 
@@ -292,7 +309,6 @@ input + svg {
 
 .dropdown-btn i {
   margin-left: 1.2em;
-  transition: transform 400ms;
   color: var(--dark-grey);
 }
 
@@ -389,25 +405,25 @@ a.results-per-option {
 }
 
 .page-buttons {
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 0.5rem;
 }
 
 .pagination-text {
   font-size: 1.1rem;
-  display: flex;
-  justify-self: center;
-  align-items: center;
   margin: 0 0.3em;
 }
 
 .page-btn {
   border: none;
   cursor: pointer;
-  font-size: 2.25rem;
+  background: transparent;
+  font-size: 2.5rem;
   color: var(--black);
-  padding: 0.1rem 0.275rem;
+  margin-bottom: -0.5rem;
   transition: color 0.3s ease;
 }
 
@@ -421,8 +437,7 @@ a.results-per-option {
   }
 }
 
-.page-btn:hover,
-.page-btn:focus {
+.page-btn:hover {
   color: var(--blue);
 }
 
@@ -442,21 +457,27 @@ a.results-per-option {
 }
 
 /* beers */
-.card {
-  display: flex;
-  background-color: white;
-  box-shadow: var(--shadow);
-  cursor: pointer;
+/* .beers-container {
+  padding: 0 1rem 1rem;
+} */
+
+.beers-grid {
+  display: none;
 }
 
-#beers {
+.beers-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .beers-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   grid-gap: 1rem;
   opacity: 1;
-}
+} */
 
-#beers.fade-in {
+.beers-container.fade-in {
   -webkit-animation-name: resultsFadeIn;
   -webkit-animation-duration: 750ms;
   animation-name: resultsFadeIn;
@@ -483,6 +504,13 @@ a.results-per-option {
   }
 }
 
+.card {
+  display: flex;
+  background-color: white;
+  box-shadow: var(--shadow);
+  cursor: auto;
+}
+
 .beer-wrapper {
   justify-content: center;
   align-items: flex-end;
@@ -498,7 +526,7 @@ a.results-per-option {
   background-color: white;
   text-align: center;
   width: 100%;
-  cursor: pointer;
+  pointer-events: none;
   opacity: 1;
   z-index: 99;
   transition: opacity 0.5s ease;
@@ -528,6 +556,7 @@ a.results-per-option {
   height: 2.65em;
   top: 0;
   left: 0;
+  border-top: 1px solid rgba(0, 0, 16, 0.15);
   background: rgb(255, 255, 255);
   background: linear-gradient(
     0deg,
@@ -599,3 +628,122 @@ a.results-per-option {
   font-size: 0.9rem;
   line-height: 1.5;
 }
+
+/* List view */
+/* .beers-list {
+} */
+
+/* .list-view {
+  background-color: red;
+} */
+
+.beers-list {
+  border-top: 1px solid var(--light-grey);
+}
+
+.beers-container.list-view {
+  padding: 0;
+}
+
+.card-list {
+  padding: 0;
+  margin-bottom: 0.275rem;
+  border-bottom: 1px solid var(--light-grey);
+}
+
+.beer--card-list {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.beer--img-list-container {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.beer--img-list {
+  max-height: 95px;
+  padding: 0 0.25rem;
+}
+
+.beer--info-list {
+  display: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 0.25rem 0.25rem 1rem;
+}
+
+.beer--name-list {
+  color: var(--dark-blue);
+  font-size: 1.1rem;
+  font-weight: 400;
+  padding-bottom: 0.425rem;
+  border-bottom: 0.1rem solid var(--lighter-grey);
+}
+
+.beer--tagline-list {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--dark-grey);
+  padding-top: 0.25rem;
+}
+
+.beer--bottom-info-list {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background: pink; */
+  padding-top: 0.5rem;
+}
+
+.beer--details-list {
+  color: var(--dark-grey);
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  width: 55%;
+}
+
+.beer--description-toggle-list {
+  position: absolute;
+  color: var(--dark-grey);
+  font-size: 1.325rem;
+  cursor: pointer;
+  padding: 0.5rem 0.5rem 0.25rem;
+  right: 0.5rem;
+  bottom: 0.25rem;
+}
+
+.beer--description-toggle-list.open {
+  transform: rotate(-180deg);
+}
+
+.beer--description-list-container {
+  display: none;
+  height: 0;
+  transition: all 1s;
+}
+
+.beer--description-list-container.open {
+  display: block;
+  height: 100%;
+}
+
+.beer--description-list {
+  font-size: 0.9rem;
+  padding: 0.75rem 2rem 2rem;
+  background-color: #fff;
+  line-height: 1.3rem;
+}
+
+/* .toggle-beer-description-list {
+  position: absolute;
+  right: 1rem;
+} */

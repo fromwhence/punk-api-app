@@ -23,14 +23,14 @@
   unfocus();
 })(document, window);
 
-// Variables
+// Global variables
 const urlBase = 'https://api.punkapi.com/v2/beers?page=';
-const beerGrid = document.getElementById('beers');
-const filterABV = document.getElementById('filterABV');
-const filterIBU = document.getElementById('filterIBU');
-const pagerNumber = document.getElementById('pageNumber');
-const prevPage = document.getElementById('prevPage');
-const nextPage = document.getElementById('nextPage');
+const filterABV = document.getElementById('filter-abv');
+const filterIBU = document.getElementById('filter-ibu');
+const beersContainer = document.querySelector('.beers-container');
+const pageText = document.querySelector('.page-number');
+const prevPage = document.querySelector('.prev-page');
+const nextPage = document.querySelector('.next-page');
 
 let itemsPerPage = 24;
 let optionsABV = '',
@@ -115,21 +115,14 @@ const sortIBU = function (beerResults) {
   sortDropdownBtn.innerHTML = `Sort by IBU<i class="fas fa-chevron-down"></i>`;
 };
 
-// Fade in results
-const fadeInContent = function () {
-  beerGrid.classList.add('fade-in');
-  setTimeout(function () {
-    beerGrid.classList.remove('fade-in');
-  }, 1500);
-};
-
 // API call
-async function getBeers() {
+const getBeers = async function () {
   try {
     const url = urlBase + page + perPage + optionsABV + optionsIBU;
     // Fetch
     const beerPromise = await fetch(url);
     const beers = await beerPromise.json();
+    console.log(beers);
 
     // Sort results by name, abv or ibu
     sortMenuItems[0].classList.contains('current') ? sortName(beers) : null;
@@ -137,7 +130,7 @@ async function getBeers() {
     sortMenuItems[2].classList.contains('current') ? sortIBU(beers) : null;
 
     // Pagination
-    pageNumber.innerText = page;
+    pageText.innerText = page;
 
     if (page === 1) {
       prevPage.disabled = true;
@@ -151,39 +144,84 @@ async function getBeers() {
     }
 
     // Render beer data
-    const beersDiv = document.getElementById('beers');
-
-    let beerHtml = '';
+    const beersGrid = document.querySelector('.beers-grid');
+    const beersList = document.querySelector('.beers-list');
     const genericBottle = 'images/generic-bottle.png';
+    let beersGridHtml = '';
+    let beersListHtml = '';
 
-    beers.forEach(function (beer) {
-      beerHtml += `
-        <div class='beer-wrapper card'>
-          <div class='beer--card'>
-            <img class='beer--img' src='${
-              beer.image_url ? beer.image_url : genericBottle
-            }'/>
-            <h3 class='beer--name'>${beer.name}</h3>
-            <span class='beer--info'>
-              <span>ABV: ${beer.abv ? beer.abv : 'N/A'}%</span>
-              <span>IBU: ${beer.ibu ? beer.ibu : 'N/A'}</span>
-            </span>
-          </div>
-          <div class='toggle--info-bg'></div>
-          <div class='toggle--text'>Info </div>
-            <div class='beer--content'>
-              <div class='beer--name'>${beer.name}</div>
-              <div class='beer--tagline'>${beer.tagline}</div>
-              <div class='beer--description'>${beer.description}</div>
+    // const beersGridView = function () {
+    //   beers.forEach(function (beer) {
+    //     beersGridHtml += `
+    //     <div class='beer-wrapper card'>
+    //       <div class='beer--card'>
+    //         <img class='beer--img' src='${
+    //           beer.image_url ? beer.image_url : genericBottle
+    //         }'/>
+    //         <h3 class='beer--name'>${beer.name}</h3>
+    //         <span class='beer--info'>
+    //           <span>ABV: ${beer.abv ? beer.abv : 'N/A'}%</span>
+    //           <span>IBU: ${beer.ibu ? beer.ibu : 'N/A'}</span>
+    //         </span>
+    //       </div>
+    //       <div class='toggle--info-bg'></div>
+    //       <div class='toggle--text'>Info </div>
+    //         <div class='beer--content'>
+    //           <div class='beer--name'>${beer.name}</div>
+    //           <div class='beer--tagline'>${beer.tagline}</div>
+    //           <div class='beer--description'>${beer.description}</div>
+    //         </div>
+    //     </div>
+    //     `;
+    //   });
+    // };
+    // beersGridView();
+    // beersGrid.insertAdjacentHTML('afterbegin', beersGridHtml);
+
+    const beersListView = function () {
+      beers.forEach(function (beer) {
+        beersListHtml += `
+        <div class='beer-wrapper card-list'>
+          <div class='beer--card-list'>
+            <div class='beer--img-list-container'>
+              <img class='beer--img-list' src='${
+                beer.image_url ? beer.image_url : genericBottle
+              }'/>
+            </div> 
+            <div class='beer--info-list'>
+              <div class='beer--name-container'>
+                <h3 class='beer--name-list'>${beer.name}</h3>
+                <p class='beer--tagline-list'>${beer.tagline}</p>
+              </div>
+              <div class="beer--bottom-info-list">
+                <div class='beer--details-list'>
+                  <span class='abv-list'>ABV: ${
+                    beer.abv ? beer.abv : 'N/A'
+                  }%</span> |
+                  <span class='ibu-list'>IBU: ${
+                    beer.ibu ? beer.ibu : 'N/A'
+                  }</span>
+                </div>
+              </div>
+              </div>
             </div>
+            <div class='beer--description-toggle-list'>
+              <ion-icon name="chevron-down-outline"></ion-icon> 
+            </div>
+            <div class="beer--description-list-container">
+              <p class="beer--description-list">${beer.description}</p>
+          </div>
         </div>
         `;
-    });
-    beersDiv.innerHTML = beerHtml;
-  } catch (e) {
-    log(e);
+      });
+    };
+
+    beersListView();
+    beersList.insertAdjacentHTML('afterbegin', beersListHtml);
+  } catch (err) {
+    console.log(err);
   }
-  // Display additional beer info
+  // Display additional beer info in grid view
   const infoTextLinks = document.querySelectorAll('.toggle--text');
 
   infoTextLinks.forEach(info =>
@@ -193,8 +231,28 @@ async function getBeers() {
     })
   );
 
+  // Display additional beer info in list view
+  const beerDescriptionArrows = document.querySelectorAll(
+    '.beer--description-toggle-list'
+  );
+  beerDescriptionArrows.forEach(arrow =>
+    arrow.addEventListener('click', function () {
+      arrow.classList.toggle('open');
+      console.log(arrow.nextElementSibling);
+      arrow.nextElementSibling.classList.toggle('open');
+    })
+  );
+
   fadeInContent();
-}
+};
+
+// Fade in results
+const fadeInContent = function () {
+  beersContainer.classList.add('fade-in');
+  setTimeout(function () {
+    beersContainer.classList.remove('fade-in');
+  }, 1500);
+};
 
 prevPage.addEventListener('click', function () {
   page--;
