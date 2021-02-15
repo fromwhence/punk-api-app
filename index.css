@@ -62,19 +62,36 @@ header h1 {
   color: white;
   background-color: var(--black);
   width: 100%;
+  height: auto;
 }
 
-.instructions p {
+.instructions.close {
+  height: 1.9rem;
+}
+
+.instructions-text {
+  visibility: visible;
   font-size: 1rem;
   text-align: left;
   padding: 1rem 1.25rem;
 }
 
+.instructions-text.close {
+  visibility: hidden;
+}
+
 .instructions-toggle {
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   position: absolute;
-  right: 0.6rem;
-  top: 0.5rem;
+  right: 0.9rem;
+  top: 0.2rem;
+  transition: all 300;
+  cursor: pointer;
+}
+
+.instructions-toggle.close {
+  transform: rotate(45deg);
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
@@ -93,7 +110,7 @@ header h1 {
   background-color: white;
   width: 100%;
   height: auto;
-  padding: 0.5rem 0;
+  padding-bottom: 0.625rem;
   border-bottom: 1px solid var(--light-grey);
   z-index: 999;
 }
@@ -156,7 +173,7 @@ header h1 {
 .filter-container {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 1.25rem;
+  padding: 0.625rem 1.25rem 0rem;
 }
 
 @media (min-width: 500px) {
@@ -716,6 +733,14 @@ a.results-per-option {
   width: 55%;
 }
 
+/* Beer description toggle */
+.beer--description-list {
+  font-size: 0.9rem;
+  padding: 1.625rem 2rem 2rem;
+  /* background-color: #fff; */
+  line-height: 1.3rem;
+}
+
 .beer--description-toggle-list {
   position: absolute;
   color: var(--dark-grey);
@@ -723,32 +748,19 @@ a.results-per-option {
   cursor: pointer;
   padding: 0.5rem 0.5rem 0.25rem;
   right: 0.625rem;
-  bottom: 0.25rem;
+  bottom: 0.5rem;
 }
 
 .beer--description-toggle-list.open {
-  transform: rotate(-180deg);
+  transform: rotate(180deg);
 }
 
 .beer--description-list-container {
-  display: none;
   height: 0;
-  transition: all 1s;
+  visibility: hidden;
 }
 
 .beer--description-list-container.open {
-  display: block;
-  height: 100%;
+  visibility: visible;
+  height: auto;
 }
-
-.beer--description-list {
-  font-size: 0.9rem;
-  padding: 0.75rem 2rem 2rem;
-  background-color: #fff;
-  line-height: 1.3rem;
-}
-
-/* .toggle-beer-description-list {
-  position: absolute;
-  right: 1rem;
-} */

@@ -38,6 +38,19 @@ let optionsABV = '',
 let page = 1;
 let perPage = `&per_page=${itemsPerPage}`;
 
+// Hide instructions bar in mobile view
+const instructionsBar = document.querySelector('.instructions');
+const instructionsText = document.querySelector('.instructions-text');
+const instructionsToggleIcon = document.querySelector('.instructions-toggle');
+
+const toggleInstructions = function () {
+  instructionsBar.classList.toggle('close');
+  instructionsToggleIcon.classList.toggle('close');
+  instructionsText.classList.toggle('close');
+};
+
+instructionsToggleIcon.addEventListener('click', toggleInstructions);
+
 // Sticky sort and pagination toolbar
 const sortPaginationBar = document.querySelector(
   '.sortby-pagination-container'
@@ -55,6 +68,11 @@ function setStickyToolbar() {
   }
 }
 window.onscroll = () => setStickyToolbar();
+
+// Keep sticky tool bar when user activate sort dropdown
+const remainSticky = function () {
+  if (sortPaginationBar.classList.contains('sticky')) setStickyToolbar();
+};
 
 // Filters
 filterABV.addEventListener('change', function (e) {
@@ -255,11 +273,9 @@ const getBeers = async function () {
   beerDescriptionArrows.forEach(arrow =>
     arrow.addEventListener('click', function () {
       arrow.classList.toggle('open');
-      console.log(arrow.nextElementSibling);
       arrow.nextElementSibling.classList.toggle('open');
     })
   );
-
   fadeInContent();
 };
 
@@ -274,10 +290,12 @@ const fadeInContent = function () {
 prevPage.addEventListener('click', function () {
   page--;
   getBeers();
+  // remainSticky();
 });
 nextPage.addEventListener('click', function () {
   page++;
   getBeers();
+  // remainSticky();
 });
 
 getBeers();
@@ -321,6 +339,7 @@ for (let i = 0; i < sortMenuItems.length; i++) {
     removeCurrent.forEach(function (item) {
       item.classList.remove('current');
     });
+    remainSticky();
     getBeers();
   });
 }
