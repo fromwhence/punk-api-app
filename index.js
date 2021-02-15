@@ -38,6 +38,24 @@ let optionsABV = '',
 let page = 1;
 let perPage = `&per_page=${itemsPerPage}`;
 
+// Sticky sort and pagination toolbar
+const sortPaginationBar = document.querySelector(
+  '.sortby-pagination-container'
+);
+const listViewContent = document.querySelector('.list-view');
+const sticky = sortPaginationBar.offsetTop;
+
+function setStickyToolbar() {
+  if (window.pageYOffset > sticky) {
+    listViewContent.style.paddingTop = `${sortPaginationBar.offsetHeight}px`;
+    sortPaginationBar.classList.add('sticky');
+  } else {
+    sortPaginationBar.classList.remove('sticky');
+    listViewContent.style.paddingTop = '0px';
+  }
+}
+window.onscroll = () => setStickyToolbar();
+
 // Filters
 filterABV.addEventListener('change', function (e) {
   const value = e.target.value;
@@ -263,21 +281,6 @@ nextPage.addEventListener('click', function () {
 });
 
 getBeers();
-
-// Sticky sort and pagination toolbar
-const sortPaginationBar = document.querySelector(
-  '.sortby-pagination-container'
-);
-const sticky = sortPaginationBar.offsetTop;
-
-function setStickyToolbar() {
-  if (window.pageYOffset > sticky) {
-    sortPaginationBar.classList.add('sticky');
-  } else {
-    sortPaginationBar.classList.remove('sticky');
-  }
-}
-window.onscroll = () => setStickyToolbar();
 
 // Used to remove current class from all siblings for menu items
 const getSiblings = function (elem) {
