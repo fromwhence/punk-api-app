@@ -96,7 +96,7 @@ ion-icon {
 
 .instructions-toggle.close ion-icon {
   transform: rotate(45deg);
-  top: 0.2rem;
+  top: 0.25rem;
   cursor: pointer;
 }
 
