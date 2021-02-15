@@ -58,6 +58,7 @@ header h1 {
 }
 
 .instructions {
+  position: relative;
   color: white;
   background-color: var(--black);
   width: 100%;
@@ -67,6 +68,13 @@ header h1 {
   font-size: 1rem;
   text-align: left;
   padding: 1rem 1.25rem;
+}
+
+.instructions-toggle {
+  font-size: 1.3rem;
+  position: absolute;
+  right: 0.6rem;
+  top: 0.5rem;
 }
 
 @media (min-width: 768px) {
