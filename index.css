@@ -73,7 +73,7 @@ header h1 {
   visibility: visible;
   font-size: 1rem;
   text-align: left;
-  padding: 1rem 1.25rem;
+  padding: 1rem 1.25rem 1rem 1.25rem;
 }
 
 .instructions-text.close {
@@ -83,14 +83,15 @@ header h1 {
 .instructions-toggle {
   font-size: 1.35rem;
   position: absolute;
-  right: 0.9rem;
-  top: 0.2rem;
+  right: 0.875rem;
+  top: 1rem;
   transition: all 300;
   cursor: pointer;
 }
 
 .instructions-toggle.close {
   transform: rotate(45deg);
+  top: 0.2rem;
   cursor: pointer;
 }
 
