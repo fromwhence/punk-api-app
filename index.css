@@ -84,7 +84,8 @@ ion-icon {
   visibility: hidden;
 }
 
-.instructions-toggle {
+.instructions-toggle ion-icon {
+  color: #fff;
   font-size: 1.35rem;
   position: absolute;
   right: 0.875rem;
@@ -93,7 +94,7 @@ ion-icon {
   cursor: pointer;
 }
 
-.instructions-toggle.close {
+.instructions-toggle.close ion-icon {
   transform: rotate(45deg);
   top: 0.2rem;
   cursor: pointer;
