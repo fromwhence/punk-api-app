@@ -57,6 +57,10 @@ header h1 {
   padding: 1.5rem 1.25rem;
 }
 
+ion-icon {
+  color: var(--dark-grey);
+}
+
 .instructions {
   position: relative;
   color: white;
@@ -322,7 +326,7 @@ input + svg {
   min-width: 185px;
   background: white;
   color: var(--dark-grey);
-  padding: 0.85em 1em 0.9em;
+  padding: 0.9em 0.5em 0.9em 1em;
   font-size: 1em;
   font-family: 'Lato', sans-serif;
   border: 1px solid var(--light-grey);
@@ -333,7 +337,7 @@ input + svg {
 
 @media (max-width: 767px) {
   .dropdown-btn {
-    min-width: 150px;
+    min-width: 160px;
   }
 }
 
@@ -341,9 +345,14 @@ input + svg {
   border-radius: 0.3em 0.3em 0 0;
 }
 
-.dropdown-btn i {
-  margin-left: 1.2em;
+.dropdown-btn ion-icon,
+.dropdown-content ion-icon {
+  font-size: 1.5rem;
   color: var(--dark-grey);
+}
+
+.dropdown-btn ion-icon {
+  margin-top: 0.1rem;
 }
 
 @media (min-width: 768px) {
@@ -353,7 +362,7 @@ input + svg {
   }
 }
 
-.dropdown-btn.open i {
+.dropdown-btn.open ion-icon {
   transform: rotate(-180deg);
 }
 
@@ -365,12 +374,11 @@ input + svg {
   position: absolute;
   background: #fff;
   min-width: 100%;
-  /* min-width: 180px; */
   box-shadow: var(--bottom-shadow);
   border: 1px solid var(--light-grey);
   border-top: none;
-  border-radius: 0 0 0.3em 0.3em;
-  transition: all 600ms ease;
+  border-radius: 0;
+  transition: all 0.25ms ease;
   z-index: 106;
   pointer-events: none;
 }
@@ -380,7 +388,7 @@ input + svg {
   justify-content: space-between;
   align-items: center;
   color: var(--dark-grey);
-  padding: 0.9em 1em 0.9em 1.25em;
+  padding: 0.9em 0.5em 0.9em 1em;
   text-decoration: none;
   display: block;
   transition: 250ms;
@@ -421,13 +429,13 @@ a.results-per-option {
   justify-content: space-between;
 }
 
-.sort-option i,
-.results-per-option i {
+.sort-option ion-icon,
+.results-per-option ion-icon {
   visibility: hidden;
   color: var(--dark-grey);
 }
 
-.current i {
+.current ion-icon {
   visibility: visible;
 }
 
@@ -477,7 +485,7 @@ a.results-per-option {
 
 .page-btn:disabled {
   cursor: default;
-  color: var(--disabled);
+  visibility: hidden;
 }
 
 .results-per-page {

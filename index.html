@@ -12,11 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="index.css" />
     <script src="index.js" defer></script>
-    <script
-      defer
-      src="https://kit.fontawesome.com/0e8ff5a22e.js"
-      crossorigin="anonymous"
-    ></script>
   </head>
 
   <body>
@@ -27,7 +22,7 @@
       <span class="instructions-toggle"
         ><ion-icon name="close-outline"></ion-icon
       ></span>
-      <p class="instructions-text">
+      <p class="instructions-text close">
         Filter beer list by alcohol volume and/or hoppiness.
       </p>
     </div>
@@ -347,20 +342,21 @@
       <div class="sortby-pagination">
         <div class="sort-by dropdown">
           <button class="dropdown-btn">
-            Sort by Name<i class="fas fa-chevron-down"></i>
+            Sort by Name
+            <ion-icon name="chevron-down-outline"></ion-icon>
           </button>
           <div class="dropdown-content">
             <a href="#" class="sort-option sort-name current">
               Name (A-Z)
-              <i class="fas fa-check"></i>
+              <ion-icon name="checkmark-outline"></ion-icon>
             </a>
             <a href="#" class="sort-option sort-abv">
               Alcohol Vol
-              <i class="fas fa-check"></i>
+              <ion-icon name="checkmark-outline"></ion-icon>
             </a>
             <a href="#" class="sort-option sort-ibu">
               Hoppiness
-              <i class="fas fa-check"></i>
+              <ion-icon name="checkmark-outline"></ion-icon>
             </a>
           </div>
         </div>
@@ -374,26 +370,26 @@
             </div>
             <button class="next-page page-btn">
               <ion-icon name="chevron-forward-circle-outline"></ion-icon>
-              <!-- <i class="far fa-caret-square-right"></i> -->
             </button>
           </div>
         </div>
         <div class="results-per-page dropdown">
           <button class="dropdown-btn results-per-btn">
-            24 per page<i class="fas fa-chevron-down"></i>
+            24 per page
+            <ion-icon name="chevron-down-outline"></ion-icon>
           </button>
           <div class="dropdown-content">
             <a href="#" class="results-per-option twenty-four-per current">
               24
-              <i class="fas fa-check"></i>
+              <ion-icon name="checkmark-outline"></ion-icon>
             </a>
             <a href="#" class="results-per-option thirty-six-per">
               36
-              <i class="fas fa-check"></i>
+              <ion-icon name="checkmark-outline"></ion-icon>
             </a>
             <a href="#" class="results-per-option forty-eight-per sort-ibu">
               48
-              <i class="fas fa-check"></i>
+              <ion-icon name="checkmark-outline"></ion-icon>
             </a>
           </div>
         </div>

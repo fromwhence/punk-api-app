@@ -59,7 +59,7 @@ const listViewContent = document.querySelector('.list-view');
 const sticky = sortPaginationBar.offsetTop;
 
 function setStickyToolbar() {
-  if (window.pageYOffset > sticky) {
+  if (window.pageYOffset >= sticky) {
     listViewContent.style.paddingTop = `${sortPaginationBar.offsetHeight}px`;
     sortPaginationBar.classList.add('sticky');
   } else {
@@ -132,7 +132,7 @@ const sortName = function (beers) {
     }
     return 0;
   });
-  sortDropdownBtn.innerHTML = `Sort by Name<i class="fas fa-chevron-down"></i>`;
+  sortDropdownBtn.innerHTML = `Sort by Name<ion-icon name="chevron-down-outline"></ion-icon>`;
 };
 
 // Sort by ABV (ascending)
@@ -140,7 +140,7 @@ const sortABV = function (beerResults) {
   beerResults.sort(function (a, b) {
     return a.abv - b.abv;
   });
-  sortDropdownBtn.innerHTML = `Sort by ABV<i class="fas fa-chevron-down"></i>`;
+  sortDropdownBtn.innerHTML = `Sort by ABV<ion-icon name="chevron-down-outline"></ion-icon>`;
 };
 
 // Sort by IBU (ascending)
@@ -148,7 +148,7 @@ const sortIBU = function (beerResults) {
   beerResults.sort(function (a, b) {
     return a.ibu - b.ibu;
   });
-  sortDropdownBtn.innerHTML = `Sort by IBU<i class="fas fa-chevron-down"></i>`;
+  sortDropdownBtn.innerHTML = `Sort by IBU<ion-icon name="chevron-down-outline"></ion-icon>`;
 };
 
 // API call
@@ -366,7 +366,7 @@ for (let i = 0; i < resultsPerPage.length; i++) {
       resultsDropdownBtn.classList.remove('open');
       resultsDropdownBtn.nextElementSibling.classList.remove('active');
       // Modifies dropdown button text to reflect selected items per page value
-      resultsDropdownBtn.innerHTML = `${itemsPerPage} per page <i class="fas fa-chevron-down"></i>`;
+      resultsDropdownBtn.innerHTML = `${itemsPerPage} per page <ion-icon name="chevron-down-outline"></ion-icon>`;
     }
     let removeCurrent = getSiblings(resultsPerPage[i]);
     removeCurrent.shift();
