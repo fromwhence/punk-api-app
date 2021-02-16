@@ -500,9 +500,10 @@ a.results-per-option {
 }
 
 /* beers */
-/* .beers-container {
-  padding: 0 1rem 1rem;
-} */
+.beers-container {
+  padding: 0;
+  margin: 0;
+}
 
 .beers-grid {
   display: none;
@@ -522,9 +523,9 @@ a.results-per-option {
 
 .beers-container.fade-in {
   -webkit-animation-name: resultsFadeIn;
-  -webkit-animation-duration: 750ms;
+  -webkit-animation-duration: 500ms;
   animation-name: resultsFadeIn;
-  animation-duration: 750ms;
+  animation-duration: 500ms;
   animation-fill-mode: forwards;
 }
 
@@ -767,10 +768,10 @@ a.results-per-option {
 
 .beer--description-list-container {
   height: 0;
-  visibility: hidden;
+  display: none;
 }
 
 .beer--description-list-container.open {
-  visibility: visible;
   height: auto;
+  display: block;
 }

@@ -104,7 +104,6 @@ const getBeers = async function () {
     sortMenuItems[1].classList.contains('current') ? sortABV(beers) : null;
     sortMenuItems[2].classList.contains('current') ? sortIBU(beers) : null;
 
-    console.log(beers);
     // Pagination
     pageText.innerText = page;
 
@@ -152,7 +151,7 @@ const getBeers = async function () {
     //   });
     // };
     // beersGridView();
-    // beersGrid.insertAdjacentHTML('afterbegin', beersGridHtml);
+    // beersGrid.innerHTML = beersGridHtml;
 
     const beersListView = function () {
       beers.forEach(function (beer) {
@@ -220,26 +219,24 @@ const getBeers = async function () {
   fadeInContent();
 };
 
+getBeers();
+
 // Fade in results
 const fadeInContent = function () {
   beersContainer.classList.add('fade-in');
   setTimeout(function () {
     beersContainer.classList.remove('fade-in');
-  }, 1500);
+  }, 500);
 };
 
 prevPage.addEventListener('click', function () {
   page--;
   getBeers();
-  // remainSticky();
 });
 nextPage.addEventListener('click', function () {
   page++;
   getBeers();
-  // remainSticky();
 });
-
-getBeers();
 
 // Used to remove current class from all siblings for menu items
 const getSiblings = function (elem) {
@@ -255,11 +252,10 @@ const getSiblings = function (elem) {
 };
 
 // Sort results menu
+const sortDropdownBtn = document.querySelector('.dropdown-btn');
 const sortMenuItems = Array.from(
   document.getElementsByClassName('sort-option')
 );
-
-const sortDropdownBtn = document.querySelector('.dropdown-btn');
 
 // Sort results button and menu appearance
 sortDropdownBtn.addEventListener('click', function () {
@@ -280,7 +276,6 @@ for (let i = 0; i < sortMenuItems.length; i++) {
     removeCurrent.forEach(function (item) {
       item.classList.remove('current');
     });
-    remainSticky();
     getBeers();
   });
 }
