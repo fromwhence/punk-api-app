@@ -1,27 +1,4 @@
 'use strict';
-// Removes :focus outline for mouse users
-(function (document, window) {
-  if (!document || !window) {
-    return;
-  }
-  var styleText =
-    '::-moz-focus-inner{border:0 !important;}:focus{outline: none !important;';
-  var unfocus_style = document.createElement('STYLE');
-
-  window.unfocus = function () {
-    document.getElementsByTagName('HEAD')[0].appendChild(unfocus_style);
-    document.addEventListener('mousedown', function () {
-      unfocus_style.innerHTML = styleText + '}';
-    });
-    document.addEventListener('keydown', function () {
-      unfocus_style.innerHTML = '';
-    });
-  };
-  unfocus.style = function (style) {
-    styleText += style;
-  };
-  unfocus();
-})(document, window);
 
 // Global variables
 const urlBase = 'https://api.punkapi.com/v2/beers?page=';
@@ -38,46 +15,9 @@ let optionsABV = '',
 let page = 1;
 let perPage = `&per_page=${itemsPerPage}`;
 
-// Hide instructions bar in mobile view
-const instructionsBar = document.querySelector('.instructions');
-const instructionsText = document.querySelector('.instructions-text');
-const instructionsToggleIcon = document.querySelector('.instructions-toggle');
-
-const toggleInstructions = function () {
-  instructionsBar.classList.toggle('close');
-  instructionsToggleIcon.classList.toggle('close');
-  instructionsText.classList.toggle('close');
-};
-
-instructionsToggleIcon.addEventListener('click', toggleInstructions);
-
-// Sticky sort and pagination toolbar
-const sortPaginationBar = document.querySelector(
-  '.sortby-pagination-container'
-);
-const listViewContent = document.querySelector('.list-view');
-const sticky = sortPaginationBar.offsetTop;
-
-function setStickyToolbar() {
-  if (window.pageYOffset >= sticky) {
-    listViewContent.style.paddingTop = `${sortPaginationBar.offsetHeight}px`;
-    sortPaginationBar.classList.add('sticky');
-  } else {
-    sortPaginationBar.classList.remove('sticky');
-    listViewContent.style.paddingTop = '0px';
-  }
-}
-window.onscroll = () => setStickyToolbar();
-
-// Keep sticky tool bar when user activate sort dropdown
-const remainSticky = function () {
-  if (sortPaginationBar.classList.contains('sticky')) setStickyToolbar();
-};
-
 // Filters
 filterABV.addEventListener('change', function (e) {
   const value = e.target.value;
-
   switch (value) {
     case 'all':
       optionsABV = '';
@@ -164,6 +104,7 @@ const getBeers = async function () {
     sortMenuItems[1].classList.contains('current') ? sortABV(beers) : null;
     sortMenuItems[2].classList.contains('current') ? sortIBU(beers) : null;
 
+    console.log(beers);
     // Pagination
     pageText.innerText = page;
 
@@ -252,7 +193,7 @@ const getBeers = async function () {
     };
 
     beersListView();
-    beersList.insertAdjacentHTML('afterbegin', beersListHtml);
+    beersList.innerHTML = beersListHtml;
   } catch (err) {
     console.log(err);
   }
