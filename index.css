@@ -835,4 +835,8 @@ a.results-per-option {
   .beer--description-list-container.open {
     max-width: 950px;
   }
+
+  .beer--description-list {
+    padding-left: 4.25rem;
+  }
 }
