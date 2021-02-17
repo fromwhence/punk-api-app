@@ -8,6 +8,8 @@ const beersContainer = document.querySelector('.beers-container');
 const pageText = document.querySelector('.page-number');
 const prevPage = document.querySelector('.prev-page');
 const nextPage = document.querySelector('.next-page');
+const beersGrid = document.querySelector('.beers-grid');
+const beersList = document.querySelector('.beers-list');
 
 let itemsPerPage = 24;
 let optionsABV = '',
@@ -59,6 +61,37 @@ filterIBU.addEventListener('change', function (e) {
   getBeers();
 });
 
+// Hide instructions bar in mobile view
+const instructionsBar = document.querySelector('.instructions');
+const instructionsText = document.querySelector('.instructions-text');
+const instructionsToggleIcon = document.querySelector('.instructions-toggle');
+
+const toggleInstructions = function () {
+  instructionsBar.classList.toggle('close');
+  instructionsToggleIcon.classList.toggle('close');
+  instructionsText.classList.toggle('close');
+};
+
+instructionsToggleIcon.addEventListener('click', toggleInstructions);
+
+// Sticky sort and pagination toolbar
+const sortPaginationBar = document.querySelector(
+  '.sortby-pagination-container'
+);
+const beersContent = document.querySelector('.beers-container');
+const sticky = sortPaginationBar.offsetTop;
+
+function setStickyToolbar() {
+  if (window.pageYOffset >= sticky) {
+    beersContent.style.paddingTop = `${sortPaginationBar.offsetHeight}px`;
+    sortPaginationBar.classList.add('sticky');
+  } else {
+    sortPaginationBar.classList.remove('sticky');
+    beersContent.style.paddingTop = '0px';
+  }
+}
+window.onscroll = () => setStickyToolbar();
+
 // Sort results by name (A-Z)
 const sortName = function (beers) {
   beers.sort(function (a, b) {
@@ -91,6 +124,24 @@ const sortIBU = function (beerResults) {
   sortDropdownBtn.innerHTML = `Sort by IBU<ion-icon name="chevron-down-outline"></ion-icon>`;
 };
 
+// Fade in results
+const fadeInContent = function () {
+  beersContainer.classList.add('fade-in');
+  setTimeout(function () {
+    beersContainer.classList.remove('fade-in');
+  }, 1500);
+};
+
+// Pagination
+prevPage.addEventListener('click', function () {
+  page--;
+  getBeers();
+});
+nextPage.addEventListener('click', function () {
+  page++;
+  getBeers();
+});
+
 // API call
 const getBeers = async function () {
   try {
@@ -119,72 +170,72 @@ const getBeers = async function () {
     }
 
     // Render beer data
-    const beersGrid = document.querySelector('.beers-grid');
-    const beersList = document.querySelector('.beers-list');
     const genericBottle = 'images/generic-bottle.png';
     let beersGridHtml = '';
     let beersListHtml = '';
 
-    // const beersGridView = function () {
-    //   beers.forEach(function (beer) {
-    //     beersGridHtml += `
-    //     <div class='beer-wrapper card'>
-    //       <div class='beer--card'>
-    //         <img class='beer--img' src='${
-    //           beer.image_url ? beer.image_url : genericBottle
-    //         }'/>
-    //         <h3 class='beer--name'>${beer.name}</h3>
-    //         <span class='beer--info'>
-    //           <span>ABV: ${beer.abv ? beer.abv : 'N/A'}%</span>
-    //           <span>IBU: ${beer.ibu ? beer.ibu : 'N/A'}</span>
-    //         </span>
-    //       </div>
-    //       <div class='toggle--info-bg'></div>
-    //       <div class='toggle--text'>Info </div>
-    //         <div class='beer--content'>
-    //           <div class='beer--name'>${beer.name}</div>
-    //           <div class='beer--tagline'>${beer.tagline}</div>
-    //           <div class='beer--description'>${beer.description}</div>
-    //         </div>
-    //     </div>
-    //     `;
-    //   });
-    // };
-    // beersGridView();
-    // beersGrid.innerHTML = beersGridHtml;
+    const beersGridView = function () {
+      beers.forEach(function (beer) {
+        beersGridHtml += `
+        <div class='beer-wrapper card'>
+          <div class='beer--card'>
+            <img class='beer--img' src='${
+              beer.image_url ? beer.image_url : genericBottle
+            }'/>
+            <h3 class='beer--name'>${beer.name}</h3>
+            <span class='beer--info'>
+              <span>ABV: ${beer.abv ? beer.abv : 'N/A'}%</span>
+              <span>IBU: ${beer.ibu ? beer.ibu : 'N/A'}</span>
+            </span>
+          </div>
+          <div class='toggle--info-bg'></div>
+          <div class='toggle--text'>Info </div>
+            <div class='beer--content'>
+              <div class='beer--name'>${beer.name}</div>
+              <div class='beer--tagline'>${beer.tagline}</div>
+              <div class='beer--description'>${beer.description}</div>
+            </div>
+        </div>
+        `;
+      });
+    };
+    beersGridView();
+    beersGrid.innerHTML = beersGridHtml;
 
     const beersListView = function () {
       beers.forEach(function (beer) {
         beersListHtml += `
-        <div class='beer-wrapper card-list'>
-          <div class='beer--card-list'>
-            <div class='beer--img-list-container'>
-              <img class='beer--img-list' src='${
-                beer.image_url ? beer.image_url : genericBottle
-              }'/>
-            </div> 
-            <div class='beer--info-list'>
-              <div class='beer--name-container'>
-                <h3 class='beer--name-list'>${beer.name}</h3>
-                <p class='beer--tagline-list'>${beer.tagline}</p>
-              </div>
-              <div class="beer--bottom-info-list">
-                <div class='beer--details-list'>
-                  <span class='abv-list'>ABV: ${
-                    beer.abv ? beer.abv : 'N/A'
-                  }%</span> |
-                  <span class='ibu-list'>IBU: ${
-                    beer.ibu ? beer.ibu : 'N/A'
-                  }</span>
+        <div class="card--list-container">
+          <div class='beer-wrapper card-list'>
+            <div class='beer--card-list'>
+              <div class='beer--img-list-container'>
+                <img class='beer--img-list' src='${
+                  beer.image_url ? beer.image_url : genericBottle
+                }'/>
+              </div> 
+              <div class='beer--info-list'>
+                <div class='beer--name-container'>
+                  <h3 class='beer--name-list'>${beer.name}</h3>
+                  <p class='beer--tagline-list'>${beer.tagline}</p>
+                </div>
+                <div class="beer--bottom-info-list">
+                  <div class='beer--details-list'>
+                    <span class='abv-list'>ABV: ${
+                      beer.abv ? beer.abv : 'N/A'
+                    }%</span> |
+                    <span class='ibu-list'>IBU: ${
+                      beer.ibu ? beer.ibu : 'N/A'
+                    }</span>
+                  </div>
+                </div>
                 </div>
               </div>
+              <div class='beer--description-toggle-list'>
+                <ion-icon name="chevron-down-outline"></ion-icon> 
               </div>
+              <div class="beer--description-list-container">
+                <p class="beer--description-list">${beer.description}</p>
             </div>
-            <div class='beer--description-toggle-list'>
-              <ion-icon name="chevron-down-outline"></ion-icon> 
-            </div>
-            <div class="beer--description-list-container">
-              <p class="beer--description-list">${beer.description}</p>
           </div>
         </div>
         `;
@@ -216,26 +267,44 @@ const getBeers = async function () {
       arrow.nextElementSibling.classList.toggle('open');
     })
   );
+
   fadeInContent();
 };
 
 getBeers();
 
-// Fade in results
-const fadeInContent = function () {
-  beersContainer.classList.add('fade-in');
-  setTimeout(function () {
-    beersContainer.classList.remove('fade-in');
-  }, 500);
-};
+// List and grid views
+const gridIcon = document.querySelector('.grid-view');
+const listIcon = document.querySelector('.list-view');
 
-prevPage.addEventListener('click', function () {
-  page--;
-  getBeers();
+// Default to list view for small devices, grid for large devices
+const defaultView = function () {
+  let windowWidth = window.innerWidth;
+  if (windowWidth < 767) {
+    beersGrid.classList.remove('active');
+    beersList.classList.add('active');
+  } else {
+    listIcon.classList.add('disabled');
+    gridIcon.classList.remove('disabled');
+    beersGrid.classList.add('active');
+    beersList.classList.remove('active');
+  }
+};
+defaultView();
+
+// Change view on larger devices using list and grid icons
+listIcon.addEventListener('click', function () {
+  listIcon.classList.toggle('disabled');
+  gridIcon.classList.toggle('disabled');
+  beersList.classList.add('active');
+  beersGrid.classList.remove('active');
 });
-nextPage.addEventListener('click', function () {
-  page++;
-  getBeers();
+
+gridIcon.addEventListener('click', function () {
+  gridIcon.classList.toggle('disabled');
+  listIcon.classList.toggle('disabled');
+  beersGrid.classList.add('active');
+  beersList.classList.remove('active');
 });
 
 // Used to remove current class from all siblings for menu items

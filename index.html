@@ -362,8 +362,15 @@
             </a>
           </div>
         </div>
-        <div class="pagination">
-          <div class="page-buttons">
+          <div class="grid-list-container">
+            <div class="grid-view layout disabled">
+              <ion-icon name="grid-outline"></ion-icon>
+            </div>
+            <div class="list-view layout">
+              <ion-icon name="list-outline"></ion-icon>
+            </div>
+          </div>
+          <div class="pagination-container">
             <button class="prev-page page-btn" disabled>
               <ion-icon name="chevron-back-circle-outline"></ion-icon>
             </button>
@@ -374,7 +381,6 @@
               <ion-icon name="chevron-forward-circle-outline"></ion-icon>
             </button>
           </div>
-        </div>
         <div class="results-per-page dropdown">
           <button class="dropdown-btn results-per-btn">
             24 per page
@@ -395,11 +401,12 @@
             </a>
           </div>
         </div>
+        </div>
       </div>
     </div>
-    <div class="beers-container list-view">
+    <div class="beers-container">
       <div class="beers-grid"></div>
-      <div class="beers-list"></div>
+      <div class="beers-list active"></div>
     </div>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
   </body>

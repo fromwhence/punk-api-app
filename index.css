@@ -33,6 +33,7 @@
 
 button {
   padding: 0;
+  border: 0;
   cursor: pointer;
 }
 
@@ -70,14 +71,14 @@ ion-icon {
 }
 
 .instructions.close {
-  height: 1.9rem;
+  height: 1.75rem;
 }
 
 .instructions-text {
   visibility: visible;
   font-size: 1rem;
   text-align: left;
-  padding: 1rem 1.25rem 1rem 1.25rem;
+  padding: 0.75rem 1.25rem 0.75rem 1.25rem;
 }
 
 .instructions-text.close {
@@ -89,14 +90,15 @@ ion-icon {
   font-size: 1.35rem;
   position: absolute;
   right: 0.875rem;
-  top: 1rem;
+  top: 0.7rem;
   transition: all 300;
   cursor: pointer;
 }
 
 .instructions-toggle.close ion-icon {
+  opacity: 0.7;
   transform: rotate(45deg);
-  top: 0.25rem;
+  top: 0.1625rem;
   cursor: pointer;
 }
 
@@ -107,10 +109,7 @@ ion-icon {
   }
 }
 
-/* main container */
-/* .container {
-  padding: 1rem 1.25rem;
-} */
+/* ABV and IBU filters */
 
 .filters-container {
   background-color: white;
@@ -125,55 +124,7 @@ ion-icon {
   display: flex;
   flex-direction: column;
   height: auto;
-}
-
-@media (min-width: 500px) {
-  .filters-container {
-    padding: 0.25rem 0;
-  }
-
-  .filters {
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0 2rem 0.25rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .filters {
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    padding: 0.5rem 2rem;
-    max-width: 900px;
-  }
-}
-
-.filter-card {
-  width: 100%;
-}
-
-@media (min-width: 500px) {
-  .filter-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 220px;
-  }
-}
-
-@media (min-width: 768px) {
-  .filter-card {
-    align-items: center;
-    max-width: 380px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .filter-card:first-of-type {
-    margin-right: 5em;
-  }
+  max-width: 800px;
 }
 
 .filter-container {
@@ -182,40 +133,10 @@ ion-icon {
   padding: 0.625rem 1.25rem 0rem;
 }
 
-@media (min-width: 500px) {
-  .filter-container {
-    flex-direction: column;
-    padding: 0 0 0.5rem 0;
-    max-width: 300px;
-  }
-}
-
-@media (min-width: 768px) {
-  .filter-container {
-    flex-direction: row;
-    max-width: 380px;
-    padding: 0;
-  }
-}
-
-.filter-text p {
+.filter-text {
   color: var(--black);
-  font-size: 1rem;
   margin: 0.75rem 0;
   text-align: left;
-}
-
-@media (min-width: 500px) {
-  .filter-text p {
-    font-size: 1.1rem;
-    text-align: center;
-  }
-}
-
-@media (min-width: 768px) {
-  .filter-text p {
-    margin-right: 0.75rem;
-  }
 }
 
 .filter {
@@ -239,6 +160,58 @@ ion-icon {
   font-size: 1em;
   color: var(--off-white);
   padding: 0 0.5rem 0 1rem;
+}
+
+@media (min-width: 450px) {
+  .filters {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .filter-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .filter-container {
+    flex-direction: column;
+    padding: 0 0 0.5rem;
+  }
+
+  .filter-text {
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+
+@media (min-width: 700px) {
+  .filters {
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0.625rem 1.25rem;
+    width: 100%;
+    max-width: 780px;
+  }
+
+  .filters-container {
+    padding-bottom: 0;
+  }
+
+  .filter-container {
+    flex-direction: row;
+    padding: 0;
+  }
+
+  .filter-card {
+    align-items: flex-start;
+  }
+
+  .filter-text {
+    margin-right: 0.75rem;
+  }
 }
 
 svg {
@@ -280,38 +253,29 @@ input + svg {
 .sortby-pagination-container {
   display: flex;
   width: 100%;
-  height: auto;
   margin: 0 auto;
-  padding: 0.75rem 1.25rem;
-  justify-content: space-between;
-  align-items: center;
+  padding: 0.5rem 1.25rem;
   background-color: var(--off-white);
   border-bottom: 1px solid var(--light-grey);
-  z-index: 105;
+  z-index: 106;
 }
+
+/* Sticky toolbar */
 
 .sticky {
   position: fixed;
   top: 0;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .sortby-pagination {
-  display: flex;
   width: 100%;
+  display: flex;
   height: auto;
   margin: 0 auto;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--off-white);
-}
-
-@media (min-width: 1024px) {
-  .sortby-pagination {
-    justify-content: space-between;
-    max-width: 800px;
-    /* padding: 0.85em 0.75em 0 0.3em; */
-  }
+  max-width: 750px;
 }
 
 /* Sort by */
@@ -324,10 +288,10 @@ input + svg {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width: 185px;
+  min-width: 165px;
   background: white;
   color: var(--dark-grey);
-  padding: 0.9em 0.5em 0.9em 1em;
+  padding: 0.75em 0.5em 0.75em 0.85em;
   font-size: 1em;
   font-family: 'Lato', sans-serif;
   border: 1px solid var(--light-grey);
@@ -336,9 +300,9 @@ input + svg {
   overflow: hidden;
 }
 
-@media (max-width: 767px) {
-  .dropdown-btn {
-    min-width: 160px;
+@media (min-width: 1200px) {
+  .sortby-pagination {
+    max-width: 850px;
   }
 }
 
@@ -354,13 +318,6 @@ input + svg {
 
 .dropdown-btn ion-icon {
   margin-top: 0.1rem;
-}
-
-@media (min-width: 768px) {
-  .dropdown-btn {
-    padding: 0.85em 1.2em 0.95em;
-    font-size: 1.1em;
-  }
 }
 
 .dropdown-btn.open ion-icon {
@@ -389,7 +346,7 @@ input + svg {
   justify-content: space-between;
   align-items: center;
   color: var(--dark-grey);
-  padding: 0.9em 0.5em 0.9em 1em;
+  padding: 0.75em 0.5em 0.75em 0.85em;
   text-decoration: none;
   display: block;
   transition: 250ms;
@@ -397,12 +354,8 @@ input + svg {
 }
 
 @media (min-width: 768px) {
-  .dropdown-content {
-    max-width: 170px;
-  }
-
   .dropdown-content a {
-    font-size: 1.1em;
+    font-size: 1em;
   }
 }
 
@@ -440,37 +393,65 @@ a.results-per-option {
   visibility: visible;
 }
 
-/* pagination */
-.pagination {
-  display: flex;
-  justify-content: center;
+/* list and grid icons */
+.grid-list-container {
+  display: none;
+  justify-content: space-between;
   align-items: center;
+  width: 115px;
+  padding: 0.75rem 1rem 1rem;
+  margin-top: -0.2rem;
 }
 
-.page-buttons {
-  height: auto;
+@media (min-width: 700px) {
+  .grid-list-container {
+    display: flex;
+  }
+}
+
+.layout ion-icon {
+  background: transparent;
+  font-size: 1.75rem;
+  color: var(--dark-blue);
+  margin-bottom: -0.5rem;
+  transition: color 0.2s ease;
+}
+
+.list-view ion-icon {
+  font-size: 2.3rem;
+}
+
+.disabled ion-icon {
+  color: var(--disabled);
+  cursor: pointer;
+}
+
+.layout ion-icon:hover {
+  color: var(--dark-blue);
+}
+
+.pagination-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 0 0.5rem;
+  width: 105px;
+  height: auto;
+  /* background: pink; */
 }
 
 .pagination-text {
   font-size: 1.1rem;
-  margin: 0 0.3em;
 }
 
 .page-btn {
-  border: none;
-  cursor: pointer;
   background: transparent;
   font-size: 2.5rem;
   color: var(--black);
-  margin-bottom: -0.5rem;
   transition: color 0.3s ease;
+  margin-bottom: -0.4rem;
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .pagination {
     justify-self: flex-start;
   }
@@ -478,7 +459,7 @@ a.results-per-option {
   .page-text {
     font-size: 1.2em;
   }
-}
+} */
 
 .page-btn:hover {
   color: var(--blue);
@@ -499,37 +480,46 @@ a.results-per-option {
   }
 }
 
-/* beers */
-.beers-container {
-  padding: 0;
-  margin: 0;
-}
+/* Toggle between grid and list view */
 
 .beers-grid {
   display: none;
+  opacity: 0;
+  transition: 2s all;
 }
 
-.beers-list {
-  display: flex;
-  flex-direction: column;
-}
-
-/* .beers-grid {
+.beers-grid.active {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  grid-gap: 1rem;
-  opacity: 1;
-} */
-
-.beers-container.fade-in {
-  -webkit-animation-name: resultsFadeIn;
-  -webkit-animation-duration: 500ms;
   animation-name: resultsFadeIn;
-  animation-duration: 500ms;
+  animation-duration: 1s;
   animation-fill-mode: forwards;
 }
 
-/* Animation */
+.beers-list {
+  display: none;
+  flex-direction: column;
+}
+
+.beers-list.active {
+  display: flex;
+  animation-name: resultsFadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.beers-grid {
+  grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+  grid-gap: 0.75rem;
+  opacity: 1;
+  padding-top: 0.5rem;
+}
+
+.beers-container.fade-in {
+  animation-name: resultsFadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
 @keyframes resultsFadeIn {
   from {
     opacity: 0;
@@ -539,15 +529,7 @@ a.results-per-option {
   }
 }
 
-@-webkit-keyframes resultsFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
+/* beer grid */
 .card {
   display: flex;
   background-color: white;
@@ -566,7 +548,7 @@ a.results-per-option {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1.75rem 1.5rem 1.5rem;
+  padding: 1.25rem;
   background-color: white;
   text-align: center;
   width: 100%;
@@ -577,15 +559,16 @@ a.results-per-option {
 }
 
 .beer--name {
-  margin: 1em auto 1.2em;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: 600;
+  padding: 1rem 0 1.25rem 0;
 }
 
 .beer--img {
   margin: auto;
-  height: 16em;
-  margin: 1em auto 0.5em;
+  padding: 2rem 1rem 1rem;
+  height: 16rem;
+  width: auto;
 }
 
 .beer--info {
@@ -597,10 +580,9 @@ a.results-per-option {
 .toggle--info-bg {
   position: absolute;
   width: 100%;
-  height: 2.65em;
+  height: 2.5rem;
   top: 0;
   left: 0;
-  border-top: 1px solid rgba(0, 0, 16, 0.15);
   background: rgb(255, 255, 255);
   background: linear-gradient(
     0deg,
@@ -640,7 +622,7 @@ a.results-per-option {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 3.7em 1.75em 2em;
+  padding: 2.25rem 1.75rem 1.75rem;
   width: 100%;
   height: 100%;
   background-color: white;
@@ -654,17 +636,17 @@ a.results-per-option {
   opacity: 0.95;
 }
 
-.beer--content .beer--name {
-  margin: -0.4em auto 0.75em;
-  font-size: 1.5rem;
+.beer--name {
+  font-size: 1.2rem;
+  font-weight: 500;
   line-height: 1.1;
-  color: var(--dark-grey);
+  color: var(--dark-blue);
 }
 
 .beer--tagline {
   padding-bottom: 0.5rem;
   font-style: italic;
-  border-bottom: 2px solid var(--blue);
+  border-bottom: 2px solid var(--light-grey);
 }
 
 .beer--description {
@@ -674,15 +656,19 @@ a.results-per-option {
 }
 
 /* List view */
-.beers-container.list-view {
-  padding: 0;
-  background-color: var(--off-white);
+.card--list-container {
+  width: 100%;
+  background-color: #fff;
+  margin: auto;
+  margin-bottom: 0.275rem;
+  border-bottom: 1px solid var(--light-grey);
 }
 
 .card-list {
   padding: 0;
-  margin-bottom: 0.275rem;
-  border-bottom: 1px solid var(--light-grey);
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 850px;
 }
 
 .beer--card-list {
@@ -690,6 +676,12 @@ a.results-per-option {
   flex-direction: row;
   padding: 1rem;
   background-color: #fff;
+}
+
+@media (min-width: 450px) {
+  .beer--card-list {
+    padding: 1rem 1.25rem;
+  }
 }
 
 .beer--img-list-container {
@@ -700,8 +692,9 @@ a.results-per-option {
 }
 
 .beer--img-list {
-  max-height: 95px;
-  padding: 0 0.25rem;
+  max-height: 100px;
+  padding-right: 0.25rem;
+  margin-bottom: -0.3rem;
 }
 
 .beer--info-list {
@@ -741,17 +734,17 @@ a.results-per-option {
   font-size: 0.9rem;
   display: flex;
   justify-content: space-between;
-  width: 55%;
+  width: 75%;
+}
+
+@media (min-width: 400px) {
+  .beer--details-list {
+    width: 60%;
+    max-width: 200px;
+  }
 }
 
 /* Beer description toggle */
-.beer--description-list {
-  font-size: 0.925rem;
-  padding: 0.75rem 2rem 2rem;
-  background-color: #fff;
-  line-height: 1.35rem;
-}
-
 .beer--description-toggle-list {
   position: absolute;
   color: var(--dark-grey);
@@ -767,11 +760,79 @@ a.results-per-option {
 }
 
 .beer--description-list-container {
+  width: 100%;
   height: 0;
   display: none;
+  background-color: #fff;
 }
 
 .beer--description-list-container.open {
+  width: 100%;
   height: auto;
   display: block;
+  max-width: 850px;
+}
+
+.beer--description-list {
+  font-size: 0.925rem;
+  background-color: #fff;
+  line-height: 1.45rem;
+  max-width: 85%;
+  margin: auto;
+  padding: 0.5rem 1.25rem 1.5rem;
+}
+
+@media (min-width: 700px) {
+  .beer--card-list {
+    padding: 1rem 2.5rem 1rem;
+  }
+
+  .beer--tagline-list {
+    padding-top: 0.425rem;
+  }
+
+  .beer--details-list {
+    width: 35%;
+  }
+
+  .beer--description-list {
+    padding-right: 1rem;
+    padding-left: 7.125rem;
+  }
+
+  .beer--description-toggle-list {
+    right: 3.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .beer--description-list {
+    font-size: 0.95rem;
+    max-width: 75%;
+    padding-right: 3rem;
+    padding-left: 4.75rem;
+  }
+
+  .beer--card-list {
+    padding: 1rem 3rem 1rem 2rem;
+  }
+
+  .card-list {
+    margin: auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-list {
+    max-width: 950px;
+    margin: auto;
+  }
+
+  .beer--card-list {
+    padding-left: 1.5rem;
+  }
+
+  .beer--description-list-container.open {
+    max-width: 950px;
+  }
 }
