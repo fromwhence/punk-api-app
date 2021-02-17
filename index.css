@@ -27,10 +27,6 @@
   box-sizing: border-box;
 }
 
-/* .beers + * {
-  pointer-events: none;
-} */
-
 button {
   padding: 0;
   border: 0;
@@ -110,7 +106,6 @@ ion-icon {
 }
 
 /* ABV and IBU filters */
-
 .filters-container {
   background-color: white;
   width: 100%;
@@ -261,7 +256,6 @@ input + svg {
 }
 
 /* Sticky toolbar */
-
 .sticky {
   position: fixed;
   top: 0;
@@ -278,7 +272,7 @@ input + svg {
   max-width: 750px;
 }
 
-/* Sort by */
+/* Sort by dropdown menu*/
 .dropdown {
   display: block;
   position: relative;
@@ -298,12 +292,6 @@ input + svg {
   border-radius: 0.3em;
   cursor: pointer;
   overflow: hidden;
-}
-
-@media (min-width: 1200px) {
-  .sortby-pagination {
-    max-width: 850px;
-  }
 }
 
 .dropdown-btn.open {
@@ -353,12 +341,6 @@ input + svg {
   background: white;
 }
 
-@media (min-width: 768px) {
-  .dropdown-content a {
-    font-size: 1em;
-  }
-}
-
 .dropdown-content.active {
   height: auto;
   opacity: 1;
@@ -393,7 +375,28 @@ a.results-per-option {
   visibility: visible;
 }
 
-/* list and grid icons */
+@media (min-width: 768px) {
+  .dropdown-content a {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 1200px) {
+  .sortby-pagination {
+    max-width: 850px;
+  }
+
+  .dropdown-btn {
+    min-width: 175px;
+    padding: 0.75em 0.75em 0.75em 1em;
+  }
+
+  .dropdown-content a {
+    padding: 0.75em 0.75em 0.75em 1em;
+  }
+}
+
+/* List and grid icons */
 .grid-list-container {
   display: none;
   justify-content: space-between;
@@ -436,7 +439,6 @@ a.results-per-option {
   align-items: center;
   width: 105px;
   height: auto;
-  /* background: pink; */
 }
 
 .pagination-text {
@@ -450,16 +452,6 @@ a.results-per-option {
   transition: color 0.3s ease;
   margin-bottom: -0.4rem;
 }
-
-/* @media (min-width: 768px) {
-  .pagination {
-    justify-self: flex-start;
-  }
-
-  .page-text {
-    font-size: 1.2em;
-  }
-} */
 
 .page-btn:hover {
   color: var(--blue);
@@ -481,7 +473,6 @@ a.results-per-option {
 }
 
 /* Toggle between grid and list view */
-
 .beers-grid {
   display: none;
   opacity: 0;
@@ -529,7 +520,7 @@ a.results-per-option {
   }
 }
 
-/* beer grid */
+/* Grid view */
 .card {
   display: flex;
   background-color: white;
@@ -829,7 +820,7 @@ a.results-per-option {
   }
 
   .beer--card-list {
-    padding-left: 1.5rem;
+    padding-left: 1.25rem;
   }
 
   .beer--description-list-container.open {

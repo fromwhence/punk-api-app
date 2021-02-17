@@ -61,7 +61,7 @@ filterIBU.addEventListener('change', function (e) {
   getBeers();
 });
 
-// Hide instructions bar in mobile view
+// Hide instructions bar
 const instructionsBar = document.querySelector('.instructions');
 const instructionsText = document.querySelector('.instructions-text');
 const instructionsToggleIcon = document.querySelector('.instructions-toggle');
@@ -249,7 +249,6 @@ const getBeers = async function () {
   }
   // Display additional beer info in grid view
   const infoTextLinks = document.querySelectorAll('.toggle--text');
-
   infoTextLinks.forEach(info =>
     info.addEventListener('click', function () {
       info.classList.toggle('open');
@@ -277,7 +276,7 @@ getBeers();
 const gridIcon = document.querySelector('.grid-view');
 const listIcon = document.querySelector('.list-view');
 
-// Default to list view for small devices, grid for large devices
+// Default to list view for small devices, grid view for large devices
 const defaultView = function () {
   let windowWidth = window.innerWidth;
   if (windowWidth < 767) {
@@ -370,7 +369,6 @@ for (let i = 0; i < resultsPerPage.length; i++) {
       perPage = `&per_page=${itemsPerPage}`;
       resultsDropdownBtn.classList.remove('open');
       resultsDropdownBtn.nextElementSibling.classList.remove('active');
-      // Modifies dropdown button text to reflect selected items per page value
       resultsDropdownBtn.innerHTML = `${itemsPerPage} per page <ion-icon name="chevron-down-outline"></ion-icon>`;
     }
     let removeCurrent = getSiblings(resultsPerPage[i]);
