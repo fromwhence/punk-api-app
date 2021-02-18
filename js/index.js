@@ -10,6 +10,7 @@ const prevPage = document.querySelector('.prev-page');
 const nextPage = document.querySelector('.next-page');
 const beersGrid = document.querySelector('.beers-grid');
 const beersList = document.querySelector('.beers-list');
+const resetTextLink = document.querySelector('.header-reset');
 
 let itemsPerPage = 24;
 let optionsABV = '',
@@ -379,3 +380,8 @@ for (let i = 0; i < resultsPerPage.length; i++) {
     getBeers();
   });
 }
+
+// Reload page to reset beer list, filters, sorting, and result quantity to original state
+const resetAll = resetTextLink.addEventListener('click', function () {
+  location.reload();
+});

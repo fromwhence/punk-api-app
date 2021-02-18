@@ -25,6 +25,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* border: 1px solid pink; */
 }
 
 button {
@@ -58,6 +59,10 @@ ion-icon {
   color: var(--dark-grey);
 }
 
+.header-reset {
+  cursor: pointer;
+}
+
 .instructions {
   position: relative;
   color: white;
@@ -67,7 +72,7 @@ ion-icon {
 }
 
 .instructions.close {
-  height: 1.75rem;
+  height: 1.625rem;
 }
 
 .instructions-text {
@@ -94,7 +99,7 @@ ion-icon {
 .instructions-toggle.close ion-icon {
   opacity: 0.7;
   transform: rotate(45deg);
-  top: 0.1625rem;
+  top: 0.15rem;
   cursor: pointer;
 }
 
@@ -102,6 +107,10 @@ ion-icon {
   .instructions p {
     text-align: center;
     letter-spacing: 1px;
+  }
+
+  .instructions-toggle.close ion-icon {
+    right: 1.5rem;
   }
 }
 
@@ -438,6 +447,7 @@ a.results-per-option {
   justify-content: space-between;
   align-items: center;
   width: 105px;
+  margin-right: -0.2rem;
   height: auto;
 }
 
@@ -450,7 +460,7 @@ a.results-per-option {
   font-size: 2.5rem;
   color: var(--black);
   transition: color 0.3s ease;
-  margin-bottom: -0.4rem;
+  margin-bottom: -0.5rem;
 }
 
 .page-btn:hover {
@@ -794,12 +804,18 @@ a.results-per-option {
 
   .beer--description-list {
     padding-right: 1rem;
-    padding-left: 6.2rem;
+    padding-left: 5.75rem;
     max-width: 80%;
   }
 
   .beer--description-toggle-list {
     right: 2.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .beer--description-list {
+    padding-left: 6.25rem;
   }
 }
 
