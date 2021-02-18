@@ -25,6 +25,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border: 1px solid pink;
 }
 
 button {
@@ -794,7 +795,8 @@ a.results-per-option {
 
   .beer--description-list {
     padding-right: 1rem;
-    padding-left: 7.5rem;
+    padding-left: 6.2rem;
+    max-width: 80%;
   }
 
   .beer--description-toggle-list {
@@ -807,7 +809,7 @@ a.results-per-option {
     font-size: 0.95rem;
     max-width: 75%;
     padding-right: 3rem;
-    padding-left: 4.4rem;
+    padding-left: 4.5rem;
   }
 
   .beer--card-list {
