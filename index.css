@@ -685,7 +685,7 @@ a.results-per-option {
 .beer--img-list {
   max-height: 100px;
   padding-right: 0.25rem;
-  margin-bottom: -0.3rem;
+  margin-bottom: -0.2rem;
 }
 
 .beer--info-list {
@@ -773,6 +773,12 @@ a.results-per-option {
   padding: 0.5rem 1.25rem 1.5rem;
 }
 
+@media (min-width: 450px) {
+  .beer--description-toggle-list {
+    right: 1rem;
+  }
+}
+
 @media (min-width: 700px) {
   .beer--card-list {
     padding: 1rem 2.5rem 1rem;
@@ -788,11 +794,11 @@ a.results-per-option {
 
   .beer--description-list {
     padding-right: 1rem;
-    padding-left: 7.125rem;
+    padding-left: 7.5rem;
   }
 
   .beer--description-toggle-list {
-    right: 3.5rem;
+    right: 2.5rem;
   }
 }
 
@@ -801,7 +807,7 @@ a.results-per-option {
     font-size: 0.95rem;
     max-width: 75%;
     padding-right: 3rem;
-    padding-left: 4.75rem;
+    padding-left: 4.4rem;
   }
 
   .beer--card-list {
